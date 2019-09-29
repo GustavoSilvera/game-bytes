@@ -1,4 +1,5 @@
 sceneSetups:
-- path: Assets/Minigames/MeteorMasher/Scene_MeteorMasher.unity
+- path: Assets/Minigames/Sparty/Scenes/Scene_Template.unity
   isLoaded: 1
   isActive: 1
+  isSubScene: 0
