@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private void Start()
-    {
-        
-    }
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter2D(Collision2D col)
 	{
-		HealthScript c = (HealthScript)collision.gameObject.GetComponent(typeof(HealthScript));
+        Destroy(gameObject);
+        HealthScript c = (HealthScript)col.gameObject.GetComponent(typeof(HealthScript));
 		c.TakeDamage(5);
-		Destroy(gameObject);
-	}
+    }
 }

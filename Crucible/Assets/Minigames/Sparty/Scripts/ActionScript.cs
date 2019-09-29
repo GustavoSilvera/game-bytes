@@ -6,22 +6,34 @@ public class ActionScript : MonoBehaviour
 {
     public GameObject projectile;
     int player;
+    bool direction;
 
     [SerializeField]
     public float speed = 4;
 
     private void Start()
     {
-        if (gameObject.name == "Player1") player = 1;
-        else player = 2;
+        if (gameObject.name == "Player1") player = 0;
+        else player = 1;
     }
 
     void Update()
     {
+        if (MinigameInputHelper.GetHorizontalAxis(0) < -0.1) direction = true; //left
+        else if (MinigameInputHelper.GetHorizontalAxis(0) > 0.1) direction = false; //right
         if (MinigameInputHelper.IsButton1Down(player))
         {
-            GameObject p = Instantiate(projectile, transform.position, transform.rotation);
-            //p.velocity = transform.forward * speed;
+            GameObject p;
+            if (direction)
+            {
+                p = Instantiate(projectile, transform.position - new Vector3((float) 1.5, 0, 0), transform.rotation);
+                p.GetComponent<Rigidbody2D>().velocity = new Vector2(-10.0f, 3.0f);
+            }
+            else
+            {
+                p = Instantiate(projectile, transform.position + new Vector3((float) 1.5, 0, 0), transform.rotation);
+                p.GetComponent<Rigidbody2D>().velocity = new Vector2(10.0f, 3.0f);
+            }
         }
     }
 }
