@@ -26,12 +26,12 @@ public class ActionScript : MonoBehaviour
             GameObject p;
             if (direction)
             {
-                p = Instantiate(projectile, transform.position - new Vector3((float) 1.5, 0, 0), transform.rotation);
+                p = Instantiate(projectile, transform.position - new Vector3((float) 1, 0, 0), transform.rotation);
                 p.GetComponent<Rigidbody2D>().velocity = new Vector2(-10.0f, 3.0f);
             }
             else
             {
-                p = Instantiate(projectile, transform.position + new Vector3((float) 1.5, 0, 0), transform.rotation);
+                p = Instantiate(projectile, transform.position + new Vector3((float) 1, 0, 0), transform.rotation);
                 p.GetComponent<Rigidbody2D>().velocity = new Vector2(10.0f, 3.0f);
             }
         }
