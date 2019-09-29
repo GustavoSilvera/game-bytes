@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 494}
   m_MaxSize: {x: 18008, y: 14044}
   vertical: 0
-  controlID: 7735
+  controlID: 13449
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 494}
   m_MaxSize: {x: 10002, y: 14044}
   vertical: 1
-  controlID: 7736
+  controlID: 13398
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -189,7 +189,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 9ee4ffff7ce5ffffc8e6fffff4e6ffff22e7ffff1ae8ffffb2e8ffffeee8ffff64e9ffffbaecffff4cedffff2ceeffff9ef1ffff98f2ffff4a5d0000
+      m_ExpandedIDs: 84aeffff4c680000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -279,20 +279,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Minigames/Sparty/Scripts
+    - Assets/Minigames/Sparty
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Minigames/Sparty/Scripts
+  - Assets/Minigames/Sparty
   m_LastFoldersGridSize: 16
   m_LastProjectPath: /Users/bellalaybourn/Documents/GitHub/game-bytes/Crucible
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 112}
-    m_SelectedIDs: f44a0000
-    m_LastClickedID: 19188
-    m_ExpandedIDs: 00000000564a00005e4b00002c4c00006a4d00007a4d0000de4e000026520000145600006a5800006c5800006e580000705800007258000000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 14560000
+    m_LastClickedID: 22036
+    m_ExpandedIDs: 00000000564a00005e4b00002c4c00006a4d00007a4d000026520000145600006a5800006c5800006e580000705800007258000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -320,7 +320,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000564a00005e4b00002c4c00006a4d00007a4d0000de4e0000265200006a5800006c5800006e580000705800007258000000ca9a3b
+    m_ExpandedIDs: 00000000564a00005e4b00002c4c00006a4d00007a4d000026520000145600006a5800006c5800006e580000705800007258000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -345,9 +345,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 4a5d0000
-    m_LastClickedInstanceID: 23882
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000b24e02009015000010e00400a289000048860000ac0d0000b2c9ffffb00d0000184f0000900b00006060000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -461,16 +461,16 @@ MonoBehaviour:
   m_ShowContextualTools: 0
   m_WindowGUID: 6cba3c81c11b5e54f9d468b588a066f8
   m_Gizmos: 1
-  m_SceneIsLit: 1
+  m_SceneIsLit: 0
   m_SceneLighting: 1
   m_2DMode: 1
   m_isRotationLocked: 0
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.000000029802322, y: 0.000000059604645, z: 0}
+    m_Target: {x: 0, y: 0, z: -10}
     speed: 2
-    m_Value: {x: 0.000000029802322, y: 0.000000059604645, z: 0}
+    m_Value: {x: 0, y: 0, z: -10}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -481,7 +481,7 @@ MonoBehaviour:
   m_SceneViewState:
     showFog: 1
     showMaterialUpdate: 0
-    showSkybox: 1
+    showSkybox: 0
     showFlares: 1
     showImageEffects: 1
     showParticleSystems: 1
@@ -503,9 +503,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 3.5001793
+    m_Target: 2.8578837
     speed: 2
-    m_Value: 3.5001793
+    m_Value: 2.8578837
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -820,4 +820,4 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -10764
+  m_LastSelectedObjectID: 25878

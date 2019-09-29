@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActionScript : MonoBehaviour
 {
-    public Rigidbody projectile;
+    public GameObject projectile;
     int player;
 
     [SerializeField]
@@ -20,8 +20,8 @@ public class ActionScript : MonoBehaviour
     {
         if (MinigameInputHelper.IsButton1Down(player))
         {
-            Rigidbody p = Instantiate(projectile, transform.position, transform.rotation);
-            p.velocity = transform.forward * speed;
+            GameObject p = Instantiate(projectile, transform.position, transform.rotation);
+            //p.velocity = transform.forward * speed;
         }
     }
 }
