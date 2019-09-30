@@ -33,7 +33,7 @@ public class HealthScript : MonoBehaviour {
 
     public void TakeDamage (int amount)
 	{
-		playerHealth -= amount;
-		healthSlider.value = playerHealth;
+		//playerHealth -= amount;
+		//healthSlider.value = playerHealth;
 	}
 }

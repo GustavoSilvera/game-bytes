@@ -3,50 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveScript : MonoBehaviour {
-	double x_accel, y_accel, platform;
-	double x_vel, y_vel;
+	Vector2 accel, vel;
+	Vector2 joystick, pos;
+	const float g = 3;//m/s^2
+	const float friction = (float)0.5;//between 0 and 1;
+	const float max_vel = 15;
+	struct rect{
+		public Vector2 pos;
+		public float width, height;
+	};
+	rect platform;
 	// Use this for initialization
 	void Start () {
-		x_accel = 0;
-		y_accel = -9.8;
-		x_vel = 0;
-		y_vel = 0;
-		platform = -3.5+1;
+		accel = new Vector3(0,-g);
+		vel = new Vector3(0,0);
+		platform.pos = set_vec2(0, (float)-3.5);
+		platform.width = 18;//complete length across end to end
+		platform.height = 1;//thickness
+	}
+	float clamp(float min, float max, float val){
+		if(val > max) return max;
+		if(val < min) return min;
+		return val;
+	}
+	Vector2 set_vec2(float x, float y){
+		return (new Vector2(x, y));
 	}
 	void jump(){
-		y_accel = 100;//m/s^2	
+		vel.y = 30;//m/s BOOST	
 	}
-	void run(double amnt){
-		x_accel = 10*amnt;
+	void run(float amnt){
+		if(amnt != 0) accel.x = amnt;
+		else accel.x = (float)(-friction*vel.x);
+	}
+	bool within_bounds(Vector2 obj, rect r){
+		float rad = r.width/2;
+		return(	
+			obj.x <= r.pos.x + rad && 
+			obj.x >= r.pos.x - rad &&
+			obj.y <= r.pos.y + r.height// &&
+			//obj.y >= r.pos.y - r.height
+		);
 	}
 	// Update is called once per frame
 	void Update () {
-		x_vel += x_accel;
-		y_vel += y_accel;
-		float xmove = MinigameInputHelper.GetHorizontalAxis(0);
-		float ymove = MinigameInputHelper.GetVerticalAxis(0);
-		if(transform.position.y <= platform && ymove <= 0) {
-			y_vel = 0;//transform.position.y = platform;
-			y_accel = 0;
-			transform.Translate(0f, (float)(-transform.position.y + platform), 0f);
+		pos = set_vec2(this.transform.position.x, this.transform.position.y);
+		joystick = set_vec2(MinigameInputHelper.GetHorizontalAxis(0), MinigameInputHelper.GetVerticalAxis(0));
+		float ground = (platform.pos.y+platform.height);
+		if(within_bounds(pos, platform) && joystick.y <= 0) {
+			vel.y = 0;//transform.position.y = platform;
+			transform.Translate(0f, (float)(ground - pos.y), 0f);
 		}
-		else{
-			y_accel = -9.8;	
-		}
-		if(xmove != 0){
-			run(xmove);
-		}
-		else{
-			x_accel = -0.05*x_vel;//slow down			
-		}
-		if(ymove > 0 && transform.position.y <= platform+0.1){
+		if(joystick.y > 0 && pos.y <= ground + 0.1){
 			jump();
 		}
-		else y_accel = -9.8;	
-		//float x = (float)0.1*MinigameInputHelper.GetHorizontalAxis(0);
-		//float y = (float)0.1*MinigameInputHelper.GetVerticalAxis(0);
+		if(pos.y <= ground + 0.1) run(joystick.x);
+		else accel.x = (float)(-0.001*vel.x);
+		vel.x += accel.x;
+		vel.y += accel.y;
+		vel.x = clamp(-max_vel, max_vel, vel.x);//clamped at max_vel m/s
 		transform.Translate(
-			(float)(0.001*x_vel), (float)(0.001*y_vel), 0.0f
+			vel.x*Time.deltaTime, 
+			vel.y*Time.deltaTime, 
+			0.0f
 		);
 	}
 }
