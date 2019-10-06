@@ -15,7 +15,7 @@ public class HealthScript : MonoBehaviour
 	//public Slider healthSlider; //reference to UI health bar
 
 	int player;
-	string otherName;
+	GameObject other;
 
 	// Use this for initialization
 	void Start()
@@ -23,12 +23,12 @@ public class HealthScript : MonoBehaviour
 		if (gameObject.name == "Player1")
 		{
 			player = 1;
-			otherName = "Player2";
+			other = GameObject.Find("Player2");
 		}
 		else
 		{
 			player = 2;
-			otherName = "Player1";
+			other = GameObject.Find("Player1");
 		}
 	}
 
@@ -39,13 +39,16 @@ public class HealthScript : MonoBehaviour
 
 		// Check if we have reached beyond 1 seconds.
 		// Subtracting one is more accurate over time than resetting to zero.
-		if (timer > waitTime)
+		/*if (timer > waitTime)
 		{
 			//MinigameController.Instance.AddScore(2, 2);
 			// Remove the recorded 2 seconds.
 			timer = timer - waitTime;
-			TakeDamage(2);
-		}
+			//TakeDamage(2);
+		}*/
+		double xdist = gameObject.transform.position.x - other.transform.position.x;
+		double ydist = gameObject.transform.position.y - other.transform.position.y;
+		if (xdist < 1 && xdist > -1 && ydist > 0.5 && ydist < 1.1) TakeDamage(1);
 	}
 
 	public void TakeDamage(int amount)
@@ -53,14 +56,5 @@ public class HealthScript : MonoBehaviour
 		MinigameController.Instance.AddScore(player, amount);
 		//playerHealth -= amount;
 		//healthSlider.value = playerHealth;
-	}
-
-    public void OnCollisionEnter2D(Collision2D collision)
-	{
-		TakeDamage(2);
-        if(collision.gameObject.name == otherName)
-		{
-			TakeDamage(2);
-		}
 	}
 }
