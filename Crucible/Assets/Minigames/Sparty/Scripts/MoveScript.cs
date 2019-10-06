@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class MoveScript : MonoBehaviour {
 	Vector2 accel, vel;
-	Vector2 joystick, pos;
+	Vector2 joystick, pos, pos2;
 	const float g = 3;//m/s^2
 	const float friction = (float)0.5;//between 0 and 1;
 	const float max_vel = 15;
+	string other_player_name;
 	struct rect{
 		public Vector2 pos;
 		public float width, height;
@@ -15,7 +16,6 @@ public class MoveScript : MonoBehaviour {
 	rect platform;
 
 	int player = 0;
-
 	// Use this for initialization
 	void Start () {
 		accel = new Vector3(0,-g);
@@ -23,9 +23,18 @@ public class MoveScript : MonoBehaviour {
 		platform.pos = set_vec2(0, (float)-3.5);
 		platform.width = 18;//complete length across end to end
 		platform.height = 1;//thickness
-
-		if (gameObject.name == "Player1") player = 0;
-		else player = 1;
+		if (gameObject.name == "Player1"){
+			player = 0;
+			other_player_name = "Player2";
+		}
+		else{
+			player = 1;
+			other_player_name = "Player1";
+		}
+	}
+	float abs(float x){
+		if(x < 0) return -x;
+		return x;
 	}
 	float clamp(float min, float max, float val){
 		if(val > max) return max;
@@ -52,11 +61,14 @@ public class MoveScript : MonoBehaviour {
 		);
 	}
 	void collision(){
-		
+		vel.x = -(float)(vel.x);
+		vel.y = -(float)(vel.y);	
 	}
 	// Update is called once per frame
 	void Update () {
 		pos = set_vec2(this.transform.position.x, this.transform.position.y);
+		GameObject other = GameObject.Find(other_player_name);
+		pos2 = set_vec2(other.transform.position.x, other.transform.position.y);
 		joystick = set_vec2(MinigameInputHelper.GetHorizontalAxis(player), MinigameInputHelper.GetVerticalAxis(player));
 		float ground = (platform.pos.y+platform.height);
 		if(within_bounds(pos, platform) && joystick.y <= 0) {
@@ -75,7 +87,7 @@ public class MoveScript : MonoBehaviour {
 		vel.x += accel.x;
 		vel.y += accel.y;
 		vel.x = clamp(-max_vel, max_vel, vel.x);//clamped at max_vel m/s
-		if(false){
+		if(abs(pos.x - pos2.x) < 1 && abs(pos.y - pos2.y) < 1){
 			collision();
 		}
 		transform.Translate(
