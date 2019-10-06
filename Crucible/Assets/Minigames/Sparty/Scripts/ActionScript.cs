@@ -9,7 +9,7 @@ public class ActionScript : MonoBehaviour
     bool direction;
 
     [SerializeField]
-    public float speed = 4;
+    public float speed = 25.0f;
 
     private void Start()
     {
@@ -19,20 +19,20 @@ public class ActionScript : MonoBehaviour
 
     void Update()
     {
-        if (MinigameInputHelper.GetHorizontalAxis(0) < -0.1) direction = true; //left
-        else if (MinigameInputHelper.GetHorizontalAxis(0) > 0.1) direction = false; //right
+        if (MinigameInputHelper.GetHorizontalAxis(player) < -0.1) direction = true; //left
+        else if (MinigameInputHelper.GetHorizontalAxis(player) > 0.1) direction = false; //right
         if (MinigameInputHelper.IsButton1Down(player))
         {
             GameObject p;
             if (direction)
             {
                 p = Instantiate(projectile, transform.position - new Vector3((float) 1, 0, 0), transform.rotation);
-                p.GetComponent<Rigidbody2D>().velocity = new Vector2(-10.0f, 3.0f);
+                p.GetComponent<Rigidbody2D>().velocity = new Vector2(-25.0f, 10.0f);
             }
             else
             {
                 p = Instantiate(projectile, transform.position + new Vector3((float) 1, 0, 0), transform.rotation);
-                p.GetComponent<Rigidbody2D>().velocity = new Vector2(10.0f, 3.0f);
+                p.GetComponent<Rigidbody2D>().velocity = new Vector2(25.0f, 10.0f);
             }
         }
     }
