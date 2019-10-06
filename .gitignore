@@ -62,7 +62,7 @@ sysinfo.txt
 crashlytics-build.properties
 
 #Files/Folders we dont want git to track:
-Crucible/Library/
-Crucible/Logs/
-Crucible/obj/
-Crucible/Packages/
+Crucible/Library/*
+Crucible/Logs/*
+Crucible/obj/*
+Crucible/Packages/*
