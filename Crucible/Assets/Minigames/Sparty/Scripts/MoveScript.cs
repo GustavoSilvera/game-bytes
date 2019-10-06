@@ -60,16 +60,19 @@ public class MoveScript : MonoBehaviour {
 			//obj.y >= r.pos.y - r.height
 		);
 	}
-	void collision(){
-		vel.x = -(float)(vel.x);
-		vel.y = -(float)(vel.y);	
+	void collision(bool on_ground){
+		if (on_ground) vel.x = -(float)(vel.x);
+		vel.y = -(float)(0.9*vel.y);	
 	}
 	// Update is called once per frame
 	void Update () {
 		pos = set_vec2(this.transform.position.x, this.transform.position.y);
 		GameObject other = GameObject.Find(other_player_name);
 		pos2 = set_vec2(other.transform.position.x, other.transform.position.y);
-		joystick = set_vec2(MinigameInputHelper.GetHorizontalAxis(player), MinigameInputHelper.GetVerticalAxis(player));
+		joystick = set_vec2(
+			MinigameInputHelper.GetHorizontalAxis(player), 
+			MinigameInputHelper.GetVerticalAxis(player)
+		);
 		float ground = (platform.pos.y+platform.height);
 		if(within_bounds(pos, platform) && joystick.y <= 0) {
 			vel.y = 0;//transform.position.y = platform;
@@ -88,7 +91,7 @@ public class MoveScript : MonoBehaviour {
 		vel.y += accel.y;
 		vel.x = clamp(-max_vel, max_vel, vel.x);//clamped at max_vel m/s
 		if(abs(pos.x - pos2.x) < 1 && abs(pos.y - pos2.y) < 1){
-			collision();
+			collision((pos.y <= ground+0.1));
 		}
 		transform.Translate(
 			vel.x*Time.deltaTime, 
