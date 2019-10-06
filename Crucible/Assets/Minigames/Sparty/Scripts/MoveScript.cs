@@ -24,8 +24,8 @@ public class MoveScript : MonoBehaviour {
 		platform.width = 18;//complete length across end to end
 		platform.height = 1;//thickness
 
-		if (gameObject.name == "Player1") player = 1;
-		else player = 2;
+		if (gameObject.name == "Player1") player = 0;
+		else player = 1;
 	}
 	float clamp(float min, float max, float val){
 		if(val > max) return max;
