@@ -673,7 +673,7 @@ MonoBehaviour:
   TimerText: {fileID: 1289851229}
   Score1Text: {fileID: 271921620}
   Score2Text: {fileID: 508174078}
-  DEBUG_GamemodeToTest: 2
+  DEBUG_GamemodeToTest: 4
   CurrentGamemode: 0
   MinigameEnded: 0
 --- !u!1 &729832742
@@ -744,8 +744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb9a542d738b4982b9fab1ae9d9be7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 0
-  healthSlider: {fileID: 0}
 --- !u!114 &729832746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,8 +1239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb9a542d738b4982b9fab1ae9d9be7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 0
-  healthSlider: {fileID: 0}
 --- !u!114 &1576451239
 MonoBehaviour:
   m_ObjectHideFlags: 0
