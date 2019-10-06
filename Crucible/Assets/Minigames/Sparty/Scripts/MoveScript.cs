@@ -51,6 +51,9 @@ public class MoveScript : MonoBehaviour {
 			//obj.y >= r.pos.y - r.height
 		);
 	}
+	void collision(){
+		
+	}
 	// Update is called once per frame
 	void Update () {
 		pos = set_vec2(this.transform.position.x, this.transform.position.y);
@@ -60,7 +63,11 @@ public class MoveScript : MonoBehaviour {
 			vel.y = 0;//transform.position.y = platform;
 			transform.Translate(0f, (float)(ground - pos.y), 0f);
 		}
-		if(joystick.y > 0 && pos.y <= ground + 0.1){
+		if(
+			joystick.y > 0 && pos.y <= ground + 0.1 && //clicked jump and within y bound
+			pos.x <= platform.pos.x + platform.width/2 && //within right bound
+			pos.x >= platform.pos.x - platform.width/2)//within left bound
+		{
 			jump();
 		}
 		if(pos.y <= ground + 0.1) run(joystick.x);
@@ -68,6 +75,9 @@ public class MoveScript : MonoBehaviour {
 		vel.x += accel.x;
 		vel.y += accel.y;
 		vel.x = clamp(-max_vel, max_vel, vel.x);//clamped at max_vel m/s
+		if(false){
+			collision();
+		}
 		transform.Translate(
 			vel.x*Time.deltaTime, 
 			vel.y*Time.deltaTime, 
