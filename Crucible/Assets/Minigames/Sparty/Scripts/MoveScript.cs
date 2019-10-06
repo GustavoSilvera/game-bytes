@@ -13,6 +13,9 @@ public class MoveScript : MonoBehaviour {
 		public float width, height;
 	};
 	rect platform;
+
+	int player = 0;
+
 	// Use this for initialization
 	void Start () {
 		accel = new Vector3(0,-g);
@@ -20,6 +23,9 @@ public class MoveScript : MonoBehaviour {
 		platform.pos = set_vec2(0, (float)-3.5);
 		platform.width = 18;//complete length across end to end
 		platform.height = 1;//thickness
+
+		if (gameObject.name == "Player1") player = 1;
+		else player = 2;
 	}
 	float clamp(float min, float max, float val){
 		if(val > max) return max;
@@ -48,7 +54,7 @@ public class MoveScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		pos = set_vec2(this.transform.position.x, this.transform.position.y);
-		joystick = set_vec2(MinigameInputHelper.GetHorizontalAxis(0), MinigameInputHelper.GetVerticalAxis(0));
+		joystick = set_vec2(MinigameInputHelper.GetHorizontalAxis(player), MinigameInputHelper.GetVerticalAxis(player));
 		float ground = (platform.pos.y+platform.height);
 		if(within_bounds(pos, platform) && joystick.y <= 0) {
 			vel.y = 0;//transform.position.y = platform;
