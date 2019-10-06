@@ -8,21 +8,31 @@ public class ActionScript : MonoBehaviour
     int player;
     bool direction;
 
+    float cooldown = 0.5f;
+    float time = 0.0f;
+
     [SerializeField]
     public float speed = 25.0f;
 
     private void Start()
     {
         if (gameObject.name == "Player1") player = 0;
-        else player = 1;
+        else
+        {
+            player = 1;
+            direction = true;
+        }
+
     }
 
     void Update()
     {
+        time += Time.deltaTime;
         if (MinigameInputHelper.GetHorizontalAxis(player) < -0.1) direction = true; //left
         else if (MinigameInputHelper.GetHorizontalAxis(player) > 0.1) direction = false; //right
-        if (MinigameInputHelper.IsButton1Down(player))
+        if (MinigameInputHelper.IsButton1Down(player) && time >= cooldown)
         {
+            time = 0;
             GameObject p;
             if (direction)
             {
