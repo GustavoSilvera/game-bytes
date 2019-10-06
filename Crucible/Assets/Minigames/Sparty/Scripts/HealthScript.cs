@@ -54,4 +54,13 @@ public class HealthScript : MonoBehaviour
 		//playerHealth -= amount;
 		//healthSlider.value = playerHealth;
 	}
+
+    public void OnCollisionEnter2D(Collision2D collision)
+	{
+		TakeDamage(2);
+        if(collision.gameObject.name == otherName)
+		{
+			TakeDamage(2);
+		}
+	}
 }
