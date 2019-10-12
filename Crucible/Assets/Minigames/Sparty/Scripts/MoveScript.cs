@@ -103,7 +103,8 @@ public class MoveScript : MonoBehaviour {
 		if(abs(pos.x - pos2.x) < 1 && abs(pos.y - pos2.y) < 1){
 			collision((pos.y <= ground+0.1));
 			is_in = true;
-		}
+            if(pos.y - pos2.y > 0.2) gameObject.GetComponent<HealthScript>().TakeDamage(1);
+        }
 		else is_in = false;
 		transform.Translate(
 			vel.x*Time.deltaTime, 
