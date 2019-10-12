@@ -8,7 +8,7 @@ public class HealthScript : MonoBehaviour
 {
 
 	private float timer = 0.0f;
-	private float waitTime = 1.0f;
+	private float waitTime = 0f;
 
 	//private int startingHealth = 100;
 	//public int playerHealth;
@@ -39,13 +39,15 @@ public class HealthScript : MonoBehaviour
 
 		// Check if we have reached beyond 1 seconds.
 		// Subtracting one is more accurate over time than resetting to zero.
-		/*if (timer > waitTime)
+		if (timer > waitTime)
 		{
 			//MinigameController.Instance.AddScore(2, 2);
 			// Remove the recorded 2 seconds.
 			timer = timer - waitTime;
+			var colorer = other.GetComponent<Renderer>();
+			colorer.material.SetColor("_Color", Color.white);
 			//TakeDamage(2);
-		}*/
+		}
 		double xdist = gameObject.transform.position.x - other.transform.position.x;
 		double ydist = gameObject.transform.position.y - other.transform.position.y;
 		if (xdist < 1 && xdist > -1 && ydist > 0.5 && ydist < 1.1) TakeDamage(1);
@@ -54,6 +56,10 @@ public class HealthScript : MonoBehaviour
 	public void TakeDamage(int amount)
 	{
 		MinigameController.Instance.AddScore(player, amount);
+		var colorer = other.GetComponent<Renderer>();
+		colorer.material.SetColor("_Color", Color.red);
+		waitTime = 0.3f;
+
 		//playerHealth -= amount;
 		//healthSlider.value = playerHealth;
 	}
