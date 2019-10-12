@@ -50,7 +50,7 @@ public class HealthScript : MonoBehaviour
 		}
 		double xdist = gameObject.transform.position.x - other.transform.position.x;
 		double ydist = gameObject.transform.position.y - other.transform.position.y;
-		if (xdist < 1 && xdist > -1 && ydist > 0.5 && ydist < 1.1) TakeDamage(1);
+		//if (xdist < 1 && xdist > -1 && ydist > 0.5 && ydist < 1.1) TakeDamage(1);
 	}
 
 	public void TakeDamage(int amount)
