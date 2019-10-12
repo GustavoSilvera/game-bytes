@@ -16,7 +16,6 @@ public class Projectile : MonoBehaviour
 
     GameObject p1;
     GameObject p2;
-    bool givenPoint;
 
     private void OnEnable()
     {
@@ -27,30 +26,28 @@ public class Projectile : MonoBehaviour
     private void Update()
     {
         lastFrameVelocity = rb.velocity;
-        if(!givenPoint)
+
+        double xdist = gameObject.transform.position.x - p1.transform.position.x;
+        double ydist = gameObject.transform.position.y - p1.transform.position.y;
+        if (xdist > -0.5 && xdist < 0.5 && ydist < 0.5 && ydist > -0.5)
         {
-            double xdist = gameObject.transform.position.x - p1.transform.position.x;
-            double ydist = gameObject.transform.position.y - p1.transform.position.y;
-            if (xdist > -0.5 && xdist < 0.5 && ydist < 0.5 && ydist > -0.5)
-            {
-                p2.GetComponent<HealthScript>().TakeDamage(1);
-                givenPoint = true;
-            }
-            xdist = gameObject.transform.position.x - p2.transform.position.x;
-            ydist = gameObject.transform.position.y - p2.transform.position.y;
-            if (xdist > -0.5 && xdist < 0.5 && ydist < 0.5 && ydist > -0.5)
-            {
-                p1.GetComponent<HealthScript>().TakeDamage(1);
-                givenPoint = true;
-            }
-        }
+            p2.GetComponent<HealthScript>().TakeDamage(1);
+			Destroy(gameObject);
+
+		}
+        xdist = gameObject.transform.position.x - p2.transform.position.x;
+        ydist = gameObject.transform.position.y - p2.transform.position.y;
+        if (xdist > -0.5 && xdist < 0.5 && ydist < 0.5 && ydist > -0.5)
+        {
+            p1.GetComponent<HealthScript>().TakeDamage(1);
+			Destroy(gameObject);
+		}
     }
     private void Start()
     {
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
         p1 = GameObject.Find("Player1");
         p2 = GameObject.Find("Player2");
-        givenPoint = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
