@@ -8,6 +8,7 @@ public class MoveScript : MonoBehaviour {
 	const float g = 3;//m/s^2
 	const float friction = (float)0.5;//between 0 and 1;
 	const float max_vel = 15;
+	bool is_in;
 	string other_player_name;
 	struct rect{
 		public Vector2 pos;
@@ -23,6 +24,7 @@ public class MoveScript : MonoBehaviour {
 		platform.pos = set_vec2(0, (float)-3.5);
 		platform.width = 18;//complete length across end to end
 		platform.height = 1;//thickness
+		is_in = false;
 		if (gameObject.name == "Player1"){
 			player = 0;
 			other_player_name = "Player2";
@@ -60,9 +62,16 @@ public class MoveScript : MonoBehaviour {
 			//obj.y >= r.pos.y - r.height
 		);
 	}
+	int sign(float v){
+		if(v>0) return 1;
+		else if (v==0) return 0;
+		return -1;
+	}
 	void collision(bool on_ground){
-		if (on_ground) vel.x = -(float)(vel.x);
-		vel.y = -(float)(0.9*vel.y);	
+		if(!is_in){
+			if (on_ground) vel.x = -(float)(vel.x);
+			vel.y = -(float)(vel.y);
+		}
 	}
 	// Update is called once per frame
 	void Update () {
@@ -90,9 +99,12 @@ public class MoveScript : MonoBehaviour {
 		vel.x += accel.x;
 		vel.y += accel.y;
 		vel.x = clamp(-max_vel, max_vel, vel.x);//clamped at max_vel m/s
+		vel.y = clamp(-3*max_vel, 3*max_vel, vel.y);//terminal velocity
 		if(abs(pos.x - pos2.x) < 1 && abs(pos.y - pos2.y) < 1){
 			collision((pos.y <= ground+0.1));
+			is_in = true;
 		}
+		else is_in = false;
 		transform.Translate(
 			vel.x*Time.deltaTime, 
 			vel.y*Time.deltaTime, 
