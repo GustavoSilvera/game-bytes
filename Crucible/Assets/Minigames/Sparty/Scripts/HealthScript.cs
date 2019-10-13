@@ -24,12 +24,16 @@ public class HealthScript : MonoBehaviour
 		{
 			player = 1;
 			other = GameObject.Find("Player2");
-		}
+            gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+            other.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+        }
 		else
 		{
 			player = 2;
 			other = GameObject.Find("Player1");
-		}
+            gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+            other.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+        }
 	}
 
 	// Update is called once per frame
@@ -45,9 +49,10 @@ public class HealthScript : MonoBehaviour
 			// Remove the recorded 2 seconds.
 			timer = timer - waitTime;
 			var colorer = other.GetComponent<Renderer>();
-			colorer.material.SetColor("_Color", Color.white);
-			//TakeDamage(2);
-		}
+			if(player == 1) colorer.material.SetColor("_Color", Color.yellow);
+            else colorer.material.SetColor("_Color", Color.green);
+            //TakeDamage(2);
+        }
 		double xdist = gameObject.transform.position.x - other.transform.position.x;
 		double ydist = gameObject.transform.position.y - other.transform.position.y;
 		//if (xdist < 1 && xdist > -1 && ydist > 0.5 && ydist < 1.1) TakeDamage(1);
