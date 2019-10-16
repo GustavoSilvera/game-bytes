@@ -15,7 +15,8 @@ public class MoveScript : MonoBehaviour {
 		public float width, height;
 	};
 	rect platform;
-
+	bool double_jump = true;
+	int jump_count = 0;
 	int player = 0;
 	// Use this for initialization
 	void Start () {
@@ -47,6 +48,7 @@ public class MoveScript : MonoBehaviour {
 		return (new Vector2(x, y));
 	}
 	void jump(){
+		jump_count++;
 		vel.y = 30;//m/s BOOST	
 	}
 	void run(float amnt){
@@ -67,10 +69,13 @@ public class MoveScript : MonoBehaviour {
 		else if (v==0) return 0;
 		return -1;
 	}
-	void collision(bool on_ground){
+	void collision(bool near_ground){
 		if(!is_in){
-			if (on_ground) vel.x = -(float)(vel.x);
+			if (near_ground) vel.x = -(float)(0.8*vel.x);
 			vel.y = -(float)(vel.y);
+		}
+		else{
+			//separate
 		}
 	}
 	// Update is called once per frame
@@ -87,24 +92,39 @@ public class MoveScript : MonoBehaviour {
 			vel.y = 0;//transform.position.y = platform;
 			transform.Translate(0f, (float)(ground - pos.y), 0f);
 		}
+		else if (pos.y < -5){
+			vel.y = 0;//stops from infinite falling
+			int center = 0;
+			int start_y = 5;
+			transform.Translate((float)(center - pos.x), (float)(start_y - pos.y), 0f);
+			other.GetComponent<HealthScript>().TakeDamage(1);
+		}
 		if(
-			joystick.y > 0 && pos.y <= ground + 0.1 && //clicked jump and within y bound
+			joystick.y > 0 && /*pos.y <= ground + 0.1 *///clicked jump and within y bound
 			pos.x <= platform.pos.x + platform.width/2 && //within right bound
 			pos.x >= platform.pos.x - platform.width/2)//within left bound
 		{
-			jump();
+			if(jump_count == 0 || (double_jump && jump_count <= 2)){
+				jump();
+			}
 		}
-		if(pos.y <= ground + 0.1) run(joystick.x);
+		if(pos.y <= ground + 0.1){
+			jump_count = 0;
+			run(joystick.x);
+		}
+		else if(abs(joystick.x) > 0) run((float)0.9*joystick.x);//slight air movement
 		else accel.x = (float)(-0.001*vel.x);
 		vel.x += accel.x;
 		vel.y += accel.y;
 		vel.x = clamp(-max_vel, max_vel, vel.x);//clamped at max_vel m/s
 		vel.y = clamp(-3*max_vel, 3*max_vel, vel.y);//terminal velocity
-		if(abs(pos.x - pos2.x) < 1 && abs(pos.y - pos2.y) < 1){
-			collision((pos.y <= ground+0.1));
+		if(abs(pos.x - pos2.x) <= 1 && abs(pos.y - pos2.y) <= 1){
+			collision((pos.y <= ground+0.5));
 			is_in = true;
-            if(pos.y - pos2.y > 0.2) gameObject.GetComponent<HealthScript>().TakeDamage(1);
-        }
+			if(pos.y > pos2.y + 0.1) {//jumps on head
+				gameObject.GetComponent<HealthScript>().TakeDamage(1);
+			}
+        	}	
 		else is_in = false;
 		transform.Translate(
 			vel.x*Time.deltaTime, 
