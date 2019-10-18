@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveScript : MonoBehaviour {
-	Vector2 accel, vel;
-	Vector2 joystick, pos, pos2;
+	Vector2 accel, vel, read_vel2;
+	Vector2 joystick, pos, pos2, pos2_old;
 	const float g = 3;//m/s^2
 	const float friction = (float)0.5;//between 0 and 1;
 	const float max_vel = 15;
@@ -17,6 +17,7 @@ public class MoveScript : MonoBehaviour {
 	rect platform;
 	bool double_jump = true;
 	int jump_count = 0;
+	int size = 1;
 	bool up = false;
 	int player = 0;
 	GameObject other;
@@ -72,15 +73,16 @@ public class MoveScript : MonoBehaviour {
 		else if (v==0) return 0;
 		return -1;
 	}
+	float sqr(float a){
+		return a*a;
+	}
 	void collision(float ground){
-		if (pos.y < ground + 0.1 || vel.y > 0) {
-			vel.x = -(float)(0.8*vel.x);//deflected
-			//float inside = sign(pos2.x - pos.x)*(1 - abs(pos2.x - pos.x));
-			//if(pos.y > pos2.y)//if(!(pos2.y > pos.y)) 
-			//this.transform.Translate(-inside, 0f, 0f);	//push back a little
+		if (pos.y < ground + size/2.0 || vel.y > 0) {
+			//vel.x = -(float)((vel.x + sign(read_vel2.x)*5));//deflected
+			vel.x = -(float)((vel.x - read_vel2.x));//deflected
 		}
+		if(pos.y > ground + size/2.0){
 			vel.y = -(float)(vel.y);
-		if(pos.y > ground + 0.5){
 			if(pos.y > pos2.y) this.GetComponent<HealthScript>().TakeDamage(1);
 			//float inside = sign(pos2.y - pos.y)*(1 - abs(pos2.y - pos.y));
 			//if(pos.y > pos2.y)//if(!(pos2.y > pos.y)) 
@@ -91,6 +93,8 @@ public class MoveScript : MonoBehaviour {
 	void Update () {
 		pos = set_vec2(this.transform.position.x, this.transform.position.y);
 		pos2 = set_vec2(other.transform.position.x, other.transform.position.y);
+		read_vel2 = (pos2 - pos2_old)/Time.deltaTime;
+		pos2_old = set_vec2(other.transform.position.x, other.transform.position.y);
 		joystick = set_vec2(
 			MinigameInputHelper.GetHorizontalAxis(player), 
 			MinigameInputHelper.GetVerticalAxis(player)
@@ -113,9 +117,10 @@ public class MoveScript : MonoBehaviour {
 		}
 		else if (pos.y < -5){
 			vel.y = 0;//stops from infinite falling
-			int center = 0;
+			double spawn = -6.5;//assuming fell on right side
+			if(pos.x < platform.pos.x - platform.width/2) spawn = 6.5;//actually fell on the left side
 			int start_y = 5;
-			transform.Translate((float)(center - pos.x), (float)(start_y - pos.y), 0f);
+			transform.Translate((float)(spawn - pos.x), (float)(start_y - pos.y), 0f);
 			other.GetComponent<HealthScript>().TakeDamage(1);
 		}
 		if(pos.y <= ground){//+thresh?
@@ -128,7 +133,7 @@ public class MoveScript : MonoBehaviour {
 		vel.y += accel.y;
 		vel.x = clamp(-max_vel, max_vel, vel.x);//clamped at max_vel m/s
 		vel.y = clamp(-3*max_vel, 3*max_vel, vel.y);//terminal velocity
-		if(abs(pos.x - pos2.x) <= 1 && abs(pos.y - pos2.y) <= 1){
+		if(abs(pos.x - pos2.x) <= size && abs(pos.y - pos2.y) <= size){
 			collision(ground);
         }
 		transform.Translate(
@@ -136,5 +141,6 @@ public class MoveScript : MonoBehaviour {
 			vel.y*Time.deltaTime, 
 			0.0f
 		);
+		
 	}
 }
