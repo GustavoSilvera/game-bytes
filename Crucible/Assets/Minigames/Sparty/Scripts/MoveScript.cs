@@ -83,8 +83,8 @@ public class MoveScript : MonoBehaviour {
 				vel.x = -(float)((vel.x - read_vel2.x));//deflected
 			}
 			vel.y = -(float)(vel.y);
-			if(pos.y > ground + size/2.0){	
-				if(pos.y > pos2.y+0.4) this.GetComponent<HealthScript>().TakeDamage(1);
+			if(pos.y > ground + size/2.0){
+				if(pos.y > pos2.y) this.GetComponent<HealthScript>().TakeDamage(1);
 				//float inside = sign(pos2.y - pos.y)*(1 - abs(pos2.y - pos.y));
 				//if(pos.y > pos2.y)//if(!(pos2.y > pos.y)) 
 				//this.transform.Translate(0f, -inside, 0f);	//push back a little
