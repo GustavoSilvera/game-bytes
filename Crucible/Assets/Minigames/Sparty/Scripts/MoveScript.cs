@@ -8,7 +8,6 @@ public class MoveScript : MonoBehaviour {
 	const float g = 3;//m/s^2
 	const float friction = (float)0.5;//between 0 and 1;
 	const float max_vel = 15;
-	bool is_in;
 	string other_player_name;
 	struct rect{
 		public Vector2 pos;
@@ -19,6 +18,7 @@ public class MoveScript : MonoBehaviour {
 	int jump_count = 0;
 	int size = 1;
 	bool up = false;
+	bool is_in = false;
 	int player = 0;
 	GameObject other;
 	// Use this for initialization
@@ -77,16 +77,18 @@ public class MoveScript : MonoBehaviour {
 		return a*a;
 	}
 	void collision(float ground){
-		if (pos.y < ground + size/2.0 || vel.y > 0) {
-			//vel.x = -(float)((vel.x + sign(read_vel2.x)*5));//deflected
-			vel.x = -(float)((vel.x - read_vel2.x));//deflected
-		}
-		if(pos.y > ground + size/2.0){
+		if(is_in){		
+			if (pos.y < ground + size/2.0 || vel.y > 0) {
+				//vel.x = -(float)((vel.x + sign(read_vel2.x)*5));//deflected
+				vel.x = -(float)((vel.x - read_vel2.x));//deflected
+			}
 			vel.y = -(float)(vel.y);
-			if(pos.y > pos2.y) this.GetComponent<HealthScript>().TakeDamage(1);
-			//float inside = sign(pos2.y - pos.y)*(1 - abs(pos2.y - pos.y));
-			//if(pos.y > pos2.y)//if(!(pos2.y > pos.y)) 
-			//this.transform.Translate(0f, -inside, 0f);	//push back a little
+			if(pos.y > ground + size/2.0){	
+				if(pos.y > pos2.y+0.4) this.GetComponent<HealthScript>().TakeDamage(1);
+				//float inside = sign(pos2.y - pos.y)*(1 - abs(pos2.y - pos.y));
+				//if(pos.y > pos2.y)//if(!(pos2.y > pos.y)) 
+				//this.transform.Translate(0f, -inside, 0f);	//push back a little
+			}
 		}
 	}
 	// Update is called once per frame
@@ -134,8 +136,12 @@ public class MoveScript : MonoBehaviour {
 		vel.x = clamp(-max_vel, max_vel, vel.x);//clamped at max_vel m/s
 		vel.y = clamp(-3*max_vel, 3*max_vel, vel.y);//terminal velocity
 		if(abs(pos.x - pos2.x) <= size && abs(pos.y - pos2.y) <= size){
+			is_in = true;
 			collision(ground);
-        }
+		}
+		else{
+			is_in = false;
+		}
 		transform.Translate(
 			vel.x*Time.deltaTime, 
 			vel.y*Time.deltaTime, 
