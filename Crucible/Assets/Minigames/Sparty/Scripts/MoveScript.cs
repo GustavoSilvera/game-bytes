@@ -77,7 +77,7 @@ public class MoveScript : MonoBehaviour {
 		return a*a;
 	}
 	void collision(float ground){
-		if(is_in){		
+		if(!is_in){		
 			if (pos.y < ground + size/2.0 || vel.y > 0) {
 				//vel.x = -(float)((vel.x + sign(read_vel2.x)*5));//deflected
 				vel.x = -(float)((vel.x - read_vel2.x));//deflected
@@ -134,10 +134,10 @@ public class MoveScript : MonoBehaviour {
 		vel.x += accel.x;
 		vel.y += accel.y;
 		vel.x = clamp(-max_vel, max_vel, vel.x);//clamped at max_vel m/s
-		vel.y = clamp(-3*max_vel, 3*max_vel, vel.y);//terminal velocity
+		vel.y = clamp(-2*max_vel, 2*max_vel, vel.y);//terminal velocity
 		if(abs(pos.x - pos2.x) <= size && abs(pos.y - pos2.y) <= size){
-			is_in = true;
 			collision(ground);
+			is_in = true;
 		}
 		else{
 			is_in = false;
@@ -147,6 +147,5 @@ public class MoveScript : MonoBehaviour {
 			vel.y*Time.deltaTime, 
 			0.0f
 		);
-		
 	}
 }
