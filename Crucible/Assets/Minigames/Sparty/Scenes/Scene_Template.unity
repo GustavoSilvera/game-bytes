@@ -733,6 +733,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d971d03cedf42fa9e9f5ae567d8d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boing: {fileID: 8300000, guid: f734b0fe21c4dd07cb88aff4f7963627, type: 3}
+  boing_src: {fileID: 0}
 --- !u!114 &729832745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1391,6 +1393,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d971d03cedf42fa9e9f5ae567d8d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boing: {fileID: 8300000, guid: f734b0fe21c4dd07cb88aff4f7963627, type: 3}
+  boing_src: {fileID: 0}
 --- !u!114 &1576451238
 MonoBehaviour:
   m_ObjectHideFlags: 0
