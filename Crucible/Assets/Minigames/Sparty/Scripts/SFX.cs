@@ -9,6 +9,7 @@ public class SFX : MonoBehaviour
 	public AudioSource mario;
 	public AudioSource stomp;
 	public AudioSource die;
+	public AudioSource run;
 	public void PlayBoing(){
 		boing.Play();
 	}
@@ -20,5 +21,10 @@ public class SFX : MonoBehaviour
 	}
 	public void PlayDie(){
 		die.Play();
+	}
+	public void PlayRun(){
+		run.Play();
+	}public void StopRun(){
+		run.Stop();
 	}
 }

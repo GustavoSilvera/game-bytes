@@ -43,14 +43,14 @@ public class MoveScript : MonoBehaviour {
 		//init this player
 		if(TYPE == "karate"){
 			double_jump = true;
-			max_jump = 1;
+			max_jump = 2;
 			max_vel = 20;
 			g = 2;//less gravity
 			friction = (float)0.7;//more friction
 		}
 		else if(TYPE == "tennis"){
 			double_jump = false;
-			max_jump = 0;
+			max_jump = 1;
 			max_vel = 15;
 		}
 		else{
@@ -80,11 +80,17 @@ public class MoveScript : MonoBehaviour {
 	}
 	void jump(){
 		jump_count++;
+		sound.PlayMario();
 		vel.y = 30;//m/s BOOST	
 	}
 	void run(float amnt){
-		if(amnt != 0) accel.x = amnt;
-		else accel.x = (float)(-friction*vel.x);
+		if(amnt != 0) {
+			accel.x = amnt;
+		}
+		else {
+			accel.x = (float)(-friction*vel.x);
+		//	sound.StopRun();
+		}
 	}
 	bool within_bounds(Vector2 obj, rect r){
 		float rad = r.width/2;
@@ -110,7 +116,7 @@ public class MoveScript : MonoBehaviour {
 				vel.x = -(float)((vel.x - read_vel2.x));//deflected
 			}
 			vel.y = -(float)(vel.y);
-			if(pos.y > ground + playerHeight/2.0){
+			if(pos.y > ground && !(vel.y < 0)){//since velocity just got inverted... checking that it WAS going down
 				if(pos.y > pos2.y){
 					this.GetComponent<HealthScript>().TakeDamage(1);
 					sound.PlayStomp();
@@ -132,35 +138,36 @@ public class MoveScript : MonoBehaviour {
 			MinigameInputHelper.GetVerticalAxis(player)
 		);
 		float ground = (platform.pos.y+platform.height);
-		if( joystick.y > 0 && (up == false || pos.y <= ground + 0.1) &&//clicked jump and within y bound
-			pos.x <= platform.pos.x + platform.width/2 && //within right bound
-			pos.x >= platform.pos.x - platform.width/2)//within left bound
+		if( joystick.y > 0 && (up == false || pos.y <= ground + 0.1))
 		{
-			if(jump_count <= max_jump){// || (double_jump && jump_count < 1)){
+			if(pos.y <= ground) jump_count = 0;
+			if(jump_count < max_jump){// || (double_jump && jump_count < 1)){
 				jump();
 				//audioSrc.PlayClipAtPoint(gameObject.GetComponent<AudioSource>.clip, pos);
-				sound.PlayMario();
 				up = true;
 			}
 		}
 		if(joystick.y > 0) up = true;
 		else up = false;
 		//collision with platform
-		if(within_bounds(pos, platform) && joystick.y <= 0) {
+		if(within_bounds(pos, platform) && !up) {
 			vel.y = 0;//transform.position.y = platform;
 			transform.Translate(0f, (float)(ground - pos.y), 0f);
 		}
-		else if (pos.y < -5){
+		else if (pos.y < -8){
 			vel.y = 0;//stops from infinite falling
 			double spawn = -6.5;//assuming fell on right side
-			if(pos2.x < platform.pos.x - platform.width/2) spawn = 6.5;//actually fell on the left side
-			int start_y = 5;
+			if(pos2.x < platform.pos.x) spawn = 6.5;//actually fell on the left side
+			const int start_y = 5;
 			transform.Translate((float)(spawn - pos.x), (float)(start_y - pos.y), 0f);
 			other.GetComponent<HealthScript>().TakeDamage(1);
 			sound.PlayDie();
 		}
 		if(pos.y <= ground){//+thresh?
-			jump_count = 0;
+			if( pos.x <= platform.pos.x + platform.width/2 &&
+				pos.x >= platform.pos.x - platform.width/2 && !up){
+				jump_count = 0;
+			}
 			run(joystick.x);
 		}
 		else if(abs(joystick.x) > 0) run((float)0.9*joystick.x);//slight air movement

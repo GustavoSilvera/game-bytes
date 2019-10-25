@@ -10,11 +10,11 @@ public class HealthScript : MonoBehaviour
 	private float timer = 0.0f;
 	private float waitTime = 0.3f;
 
-    //private int startingHealth = 100;
-    //public int playerHealth;
-    //public Slider healthSlider; //reference to UI health bar
+	//private int startingHealth = 100;
+	//public int playerHealth;
+	//public Slider healthSlider; //reference to UI health bar
 
-    int howMany;
+	int howMany;
 
 	int player;
 	GameObject other;
@@ -26,17 +26,17 @@ public class HealthScript : MonoBehaviour
 		{
 			player = 1;
 			other = GameObject.Find("Player2");
-            gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-            other.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-        }
+	        gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+	        other.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+	    }
 		else
 		{
 			player = 2;
 			other = GameObject.Find("Player1");
-            gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-            other.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-        }
-        howMany = 0;
+	        gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+	        other.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+	    }
+	    howMany = 0;
 	}
 
 	// Update is called once per frame
@@ -53,16 +53,16 @@ public class HealthScript : MonoBehaviour
 			timer = timer - waitTime;
 			var colorer = other.GetComponent<Renderer>();
 			if(player == 1) colorer.material.SetColor("_Color", Color.yellow);
-            else colorer.material.SetColor("_Color", Color.green);
-            //TakeDamage(2);
-            howMany++;
-        }
-        if (howMany > 3 && gameObject.transform.position.y < -10)
-        {
-            other.GetComponent<HealthScript>().TakeDamage(1);
-            howMany = 0;
-        }
-        double xdist = gameObject.transform.position.x - other.transform.position.x;
+	        else colorer.material.SetColor("_Color", Color.green);
+	        //TakeDamage(2);
+	        howMany++;
+	    }
+	    if (howMany > 3 && gameObject.transform.position.y < -10)
+	    {
+	        other.GetComponent<HealthScript>().TakeDamage(1);
+	        howMany = 0;
+	    }
+	    double xdist = gameObject.transform.position.x - other.transform.position.x;
 		double ydist = gameObject.transform.position.y - other.transform.position.y;
 		//if (xdist < 1 && xdist > -1 && ydist > 0.5 && ydist < 1.1) TakeDamage(1);
 	}
