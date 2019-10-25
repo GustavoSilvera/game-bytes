@@ -114,6 +114,7 @@ public class MoveScript : MonoBehaviour {
 			if (pos.y < ground + playerHeight/2.0 || vel.y > 0) {
 				//vel.x = -(float)((vel.x + sign(read_vel2.x)*5));//deflected
 				vel.x = -(float)((vel.x - read_vel2.x));//deflected
+				sound.PlayBump();
 			}
 			vel.y = -(float)(vel.y);
 			if(pos.y > ground && !(vel.y < 0)){//since velocity just got inverted... checking that it WAS going down
@@ -140,7 +141,9 @@ public class MoveScript : MonoBehaviour {
 		float ground = (platform.pos.y+platform.height);
 		if( joystick.y > 0 && (up == false || pos.y <= ground + 0.1))
 		{
-			if(pos.y <= ground) jump_count = 0;
+			if( pos.x <= platform.pos.x + platform.width/2 &&
+				pos.x >= platform.pos.x - platform.width/2 &&
+				pos.y <= ground ) jump_count = 0;
 			if(jump_count < max_jump){// || (double_jump && jump_count < 1)){
 				jump();
 				//audioSrc.PlayClipAtPoint(gameObject.GetComponent<AudioSource>.clip, pos);

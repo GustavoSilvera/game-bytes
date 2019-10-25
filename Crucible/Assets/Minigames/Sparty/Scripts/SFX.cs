@@ -10,6 +10,8 @@ public class SFX : MonoBehaviour
 	public AudioSource stomp;
 	public AudioSource die;
 	public AudioSource run;
+	public AudioSource bump;
+
 	public void PlayBoing(){
 		boing.Play();
 	}
@@ -26,5 +28,8 @@ public class SFX : MonoBehaviour
 		run.Play();
 	}public void StopRun(){
 		run.Stop();
+	}
+	public void PlayBump(){
+		bump.Play();
 	}
 }
