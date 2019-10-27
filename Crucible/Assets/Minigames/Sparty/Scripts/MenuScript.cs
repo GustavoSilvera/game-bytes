@@ -5,6 +5,7 @@ using UnityEngine;
 public class MenuScript : MonoBehaviour
 {
 	GameObject player1;//, player2;
+	const float move_amnt = (float)1.6;
 	// Start is called before the first frame update
 	public int place = 0;
 	int player = 0;
@@ -31,7 +32,7 @@ public class MenuScript : MonoBehaviour
 			up = true;
 			transform.Translate(
 				0, 
-				(float)1.6,//metres 
+				move_amnt,//metres 
 				0.0f
 			);		
 			down = false;		
@@ -41,7 +42,7 @@ public class MenuScript : MonoBehaviour
 			down = true;
 			transform.Translate(
 				0, 
-				(float)-1.6,//metres 
+				-move_amnt,//metres 
 				0.0f
 			);	
 			up = false;	
