@@ -15,6 +15,7 @@ public class HealthScript : MonoBehaviour
 	//public Slider healthSlider; //reference to UI health bar
 
 	int howMany;
+    int circleCount;
 
 	int player;
 	GameObject other;
@@ -37,7 +38,8 @@ public class HealthScript : MonoBehaviour
 	        other.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
 	    }
 	    howMany = 0;
-	}
+        GameObject.Find("p" + player + "pointcircle").transform.localScale = new Vector3(0, 0, 0);
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -54,8 +56,13 @@ public class HealthScript : MonoBehaviour
 			var colorer = other.GetComponent<Renderer>();
 			if(player == 1) colorer.material.SetColor("_Color", Color.yellow);
 	        else colorer.material.SetColor("_Color", Color.green);
-	        //TakeDamage(2);
-	        howMany++;
+            //TakeDamage(2);
+            howMany++;
+            circleCount++;
+            if(circleCount == 2)
+            {
+                GameObject.Find("p" + player + "pointcircle").transform.localScale = new Vector3(0, 0, 0);
+            }
 	    }
 	    if (howMany > 3 && gameObject.transform.position.y < -10)
 	    {
@@ -72,8 +79,9 @@ public class HealthScript : MonoBehaviour
 		MinigameController.Instance.AddScore(player, amount);
 		var colorer = other.GetComponent<Renderer>();
 		colorer.material.SetColor("_Color", Color.red);
-
-		//playerHealth -= amount;
-		//healthSlider.value = playerHealth;
-	}
+        GameObject.Find("p" + player + "pointcircle").transform.localScale = new Vector3(1, 1, 1);
+        circleCount = 0;
+        //playerHealth -= amount;
+        //healthSlider.value = playerHealth;
+    }
 }
