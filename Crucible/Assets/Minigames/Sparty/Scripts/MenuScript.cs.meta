@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 48d971d03cedf42fa9e9f5ae567d8d4d
+guid: 3f68eab705448b37f9f99ad3898aa340
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - boing: {fileID: 8300000, guid: f734b0fe21c4dd07cb88aff4f7963627, type: 3}
-  - boing_src: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
