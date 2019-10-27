@@ -118,7 +118,7 @@ public class MoveScript : MonoBehaviour {
 			}
 			vel.y = -(float)(vel.y);
 			if(pos.y > ground && !(vel.y < 0)){//since velocity just got inverted... checking that it WAS going down
-				if(pos.y > pos2.y){
+				if(pos.y > pos2.y && !GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn){
 					this.GetComponent<HealthScript>().TakeDamage(1);
 					sound.PlayStomp();
 				}		
