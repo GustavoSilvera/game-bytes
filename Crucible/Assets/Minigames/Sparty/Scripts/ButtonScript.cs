@@ -46,19 +46,24 @@ public class ButtonScript : MonoBehaviour
 		int cursor_p2 = p2Select.GetComponent<MenuScript>().place;
 		bool p1_select = p1Select.GetComponent<MenuScript>().select;
 		bool p2_select = p2Select.GetComponent<MenuScript>().select;
-
-		if(cursor_p1 == current_place || cursor_p2 == current_place) {
+		bool p1_hover = cursor_p1 == current_place;
+		bool p2_hover = cursor_p2 == current_place;
+		if(p1_hover || p2_hover) {
 			hover = true;
 		}
 		else hover = false;
 		if(hover) this.transform.localScale = new Vector3(hoverScale, hoverScale,1);//scale
 		else this.transform.localScale = new Vector3(1,1,1);//scale
 
-		if((cursor_p1 == current_place && p1_select) || (cursor_p2 == current_place && p2_select)){
+		if((p1_hover && p1_select) || (p2_hover && p2_select)){
 			selected = true;
 		}
 		else selected = false;
-		if(selected) this.GetComponent<Image>().color = Color.red;
+		/*if(p1_hover && p2_hover && selected){
+			
+		}*/
+		 if(p1_hover && selected) this.GetComponent<Image>().color = Color.red;
+		else if (p2_hover && selected) this.GetComponent<Image>().color = Color.green;
 		else this.GetComponent<Image>().color = Color.white;
 		
 	}
