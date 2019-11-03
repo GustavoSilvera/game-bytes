@@ -24,6 +24,8 @@ public class MoveScript : MonoBehaviour {
 	rect platform;
 	SFX sound;
 	GameObject other;
+    Animator animator;
+
 	string other_player_name;
 	// Use this for initialization
 	void Start () {
@@ -38,6 +40,7 @@ public class MoveScript : MonoBehaviour {
 			other_player_name = "Player1";
 		}
 		other = GameObject.Find(other_player_name);
+        animator = gameObject.GetComponent<Animator>();
 		//init this player
 		if(TYPE == "karate"){
 			double_jump = true;
@@ -77,11 +80,13 @@ public class MoveScript : MonoBehaviour {
 		return (new Vector2(x, y));
 	}
 	void jump(){
+        animator.SetInteger("state", 2);
 		jump_count++;
 		sound.PlayMario();
 		vel.y = 30;//m/s BOOST	
 	}
 	void run(float amnt){
+        //animator.SetInteger("state", 1);
 		if(amnt != 0) {
 			accel.x = amnt;
 		}
@@ -108,6 +113,7 @@ public class MoveScript : MonoBehaviour {
 		return a*a;
 	}
 	void collision(float ground){
+        animator.SetInteger("state", 0);
 		if(!is_in){		
 			if (pos.y < ground + playerHeight/2.0 || vel.y > 0) {
 				//vel.x = -(float)((vel.x + sign(read_vel2.x)*5));//deflected
@@ -128,7 +134,10 @@ public class MoveScript : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		pos = set_vec2(this.transform.position.x, this.transform.position.y);
+        animator.SetInteger("state", 0);
+        if (MinigameInputHelper.GetHorizontalAxis(player) < 0.1 && MinigameInputHelper.GetHorizontalAxis(player) > -0.1) animator.SetInteger("state", 0);
+        else animator.SetInteger("state", 1);
+        pos = set_vec2(this.transform.position.x, this.transform.position.y);
 		pos2 = set_vec2(other.transform.position.x, other.transform.position.y);
 		read_vel2 = (pos2 - pos2_old)/Time.deltaTime;
 		pos2_old = set_vec2(other.transform.position.x, other.transform.position.y);

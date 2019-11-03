@@ -227,7 +227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &92402704
 Transform:
   m_ObjectHideFlags: 0
@@ -6225,6 +6225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   place: 0
   select: 0
+  TYPE: 
 --- !u!1 &729832742
 GameObject:
   m_ObjectHideFlags: 0
@@ -6282,6 +6283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d971d03cedf42fa9e9f5ae567d8d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TYPE: 
 --- !u!114 &729832745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6573,6 +6575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   place: 0
   select: 0
+  TYPE: 
 --- !u!114 &834806417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7949,15 +7952,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1576451236}
-  - component: {fileID: 1576451235}
-  - component: {fileID: 1576451234}
   - component: {fileID: 1576451233}
   - component: {fileID: 1576451239}
   - component: {fileID: 1576451238}
   - component: {fileID: 1576451237}
   - component: {fileID: 1576451242}
   - component: {fileID: 1576451240}
-  - component: {fileID: 1576451241}
+  - component: {fileID: 1576451235}
+  - component: {fileID: 1576451234}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -7981,26 +7983,45 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.3066664, y: 3.7079296}
+    newSize: {x: 5.3066664, y: 3.7079296}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!23 &1576451234
-MeshRenderer:
+--- !u!95 &1576451234
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1576451232}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ade5caa71733f4b779e593c80e7be71a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!212 &1576451235
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576451232}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -8008,7 +8029,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8021,7 +8042,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -8029,14 +8050,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &1576451235
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1576451232}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 1
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 5.3066664, y: 3.7079296}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!4 &1576451236
 Transform:
   m_ObjectHideFlags: 0
@@ -8064,6 +8088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d971d03cedf42fa9e9f5ae567d8d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TYPE: 
 --- !u!114 &1576451238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8113,26 +8138,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!111 &1576451241
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1576451232}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 74028790446732400, guid: 03b2458359fbc6849bd11abe9b938398,
-    type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 59adedd75cd744501bb345bde8517d08, type: 2}
-  - {fileID: 7400000, guid: 534392fd7eb14499c903f9135f8ed3c9, type: 2}
-  - {fileID: 7400000, guid: 391cc611f02e74b0a8155c43bbb2d166, type: 2}
-  - {fileID: 7400000, guid: 9f82168b6732643f5b0f317ee95b1086, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &1576451242
 MonoBehaviour:
   m_ObjectHideFlags: 0
