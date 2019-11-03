@@ -31,7 +31,7 @@ public class StartMenu : MonoBehaviour
 		bool p1_select = p1Select.GetComponent<MenuScript>().select;
 		bool p2_select = p2Select.GetComponent<MenuScript>().select;
 		string p1_string = p1Select.GetComponent<MenuScript>().TYPE;
-		string p2_string = p1Select.GetComponent<MenuScript>().TYPE;
+		string p2_string = p2Select.GetComponent<MenuScript>().TYPE;
 		if(p1_select && p2_select){//BEGIN GAME
 			player1.GetComponent<MoveScript>().TYPE = p1_string;
 			player2.GetComponent<MoveScript>().TYPE = p2_string;
