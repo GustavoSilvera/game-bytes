@@ -1,17 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
-	public void PlayGame () 
+	GameObject p1Select, p2Select;
+	GameObject player1, player2;
+	GameObject main_game;
+	void Start()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+		p1Select = GameObject.Find("Player1Select");
+		p2Select = GameObject.Find("Player2Select ");
+		main_game = GameObject.Find("Game");
+		player1 = GameObject.Find("Player1");
+		player2 = GameObject.Find("Player2");
+		if(main_game == null) Debug.LogError("could not find main game");
+		if(p1Select == null) Debug.LogError("could not find p1");
+		if(p2Select == null) Debug.LogError("could not find p2");
+		if(player1 == null) Debug.LogError("could not find player1");
+		if(player2 == null) Debug.LogError("could not find player2");
+
+		main_game.gameObject.SetActive(false);//turns off the game
 	}
-	public void QuitGame ()
+
+	// Update is called once per frame
+	void Update()
 	{
-		//ebug.Log("Quit");
-		Application.Quit();
+		bool p1_select = p1Select.GetComponent<MenuScript>().select;
+		bool p2_select = p2Select.GetComponent<MenuScript>().select;
+		string p1_string = p1Select.GetComponent<MenuScript>().TYPE;
+		string p2_string = p1Select.GetComponent<MenuScript>().TYPE;
+		if(p1_select && p2_select){//BEGIN GAME
+			player1.GetComponent<MoveScript>().TYPE = p1_string;
+			player2.GetComponent<MoveScript>().TYPE = p2_string;
+			main_game.gameObject.SetActive(true);
+			this.gameObject.SetActive(false);			
+		}
 	}
 }

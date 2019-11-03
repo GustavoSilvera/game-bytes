@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveScript : MonoBehaviour {
 	Vector2 accel, vel, read_vel2;
 	Vector2 joystick, pos, pos2, pos2_old;
-	string TYPE;
+	public string TYPE;
 	float g = 3;//gravity (m/s^2)
 	float friction = (float)0.5;//between 0 and 1;
 	float max_vel = 15;//maximum horizontal velocity
@@ -31,12 +31,10 @@ public class MoveScript : MonoBehaviour {
 		//init other player
 		if (gameObject.name == "Player1"){
 			player = 0;
-			TYPE = "tennis";
 			other_player_name = "Player2";
 		}
 		else{
 			player = 1;
-			TYPE = "karate";
 			other_player_name = "Player1";
 		}
 		other = GameObject.Find(other_player_name);

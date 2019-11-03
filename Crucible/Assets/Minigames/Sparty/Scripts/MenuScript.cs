@@ -8,6 +8,8 @@ public class MenuScript : MonoBehaviour
 	const float move_amnt = (float)1.6;
 	// Start is called before the first frame update
 	public int place = 0;
+	public bool select = false;
+	public string TYPE;
 	int player = 0;
 	bool up = false;
 	bool down = false;
@@ -19,8 +21,8 @@ public class MenuScript : MonoBehaviour
 		if(this.name == "Player1Select") player = 0;
 		else player = 1;
 		place = 0;
+		TYPE = "null";//nothing yet
 		//player2 = GameObject.Find("Player2Select");
-		
 	}
 
 	// Update is called once per frame
@@ -51,6 +53,15 @@ public class MenuScript : MonoBehaviour
 			up = false;
 			down = false;		
 		}
-		
+		if(MinigameInputHelper.IsButton1Down(player)){
+			select = !select;
+		}
+		if(place == 0){
+			TYPE = "tennis";
+		}else if(place == 1){
+			TYPE = "karate";
+		}else if(place == 2){
+			TYPE = "baseball";
+		}
 	}
 }
