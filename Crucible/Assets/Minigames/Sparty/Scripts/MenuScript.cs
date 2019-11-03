@@ -29,7 +29,8 @@ public class MenuScript : MonoBehaviour
 	void Update()
 	{
 		//MinigameInputHelper.IsButton1Down(player)
-		if(MinigameInputHelper.GetVerticalAxis(player) > 0 && !up && place > min){
+		float v_axis = MinigameInputHelper.GetVerticalAxis(player);
+		if(v_axis > 0 && !up && place > min && !select){
 			place--;
 			up = true;
 			transform.Translate(
@@ -39,7 +40,7 @@ public class MenuScript : MonoBehaviour
 			);		
 			down = false;		
 		}
-		if (MinigameInputHelper.GetVerticalAxis(player) < 0 && !down && place < max){
+		if (v_axis < 0 && !down && place < max && !select){
 			place++;
 			down = true;
 			transform.Translate(
@@ -49,7 +50,7 @@ public class MenuScript : MonoBehaviour
 			);	
 			up = false;	
 		}
-		if(MinigameInputHelper.GetVerticalAxis(player) == 0 ){
+		if(v_axis == 0 ){
 			up = false;
 			down = false;		
 		}
