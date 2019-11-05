@@ -18,12 +18,13 @@ public class ActionScript : MonoBehaviour
 	float cooldown = 0.5f;
 	float time = 0.0f;
 	string TYPE = "null";
-	[SerializeField]
-	public float speed = 25.0f;
-
+    [SerializeField]
+    public float speed = 25.0f;
+    SpriteRenderer spriteRenderer;
 	private void Start()
 	{
-		if (gameObject.name == "Player1"){
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        if (gameObject.name == "Player1"){
 			player = 0;
 			other = GameObject.Find("Player2");
 		}
@@ -39,7 +40,8 @@ public class ActionScript : MonoBehaviour
 	}
 
 	void Update(){
-
+        if (direction) spriteRenderer.flipX = false;
+        else spriteRenderer.flipX = true;
 		float horizontal_axis = MinigameInputHelper.GetHorizontalAxis(player);
 		bool button1 = MinigameInputHelper.IsButton1Down(player);
 		bool button2 = MinigameInputHelper.IsButton2Down(player);
