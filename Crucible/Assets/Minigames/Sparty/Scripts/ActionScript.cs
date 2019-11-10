@@ -27,6 +27,8 @@ public class ActionScript : MonoBehaviour
     Animator animator;
     float attacktime = 0.0f;
 
+    int ballCharge = 0;
+
     private void Start()
 	{
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -63,20 +65,23 @@ public class ActionScript : MonoBehaviour
 		if (horizontal_axis < -0.1) direction = true; //left
 		else if (horizontal_axis > 0.1) direction = false; //right
 
-        if (button1 && time >= cooldown && TYPE != "karate"){
+        if ((button1 || MinigameInputHelper.IsButton1Held(player)) && time >= cooldown && TYPE != "karate" && ballCharge < 30) ballCharge++;
+
+        if (MinigameInputHelper.IsButton1Up(player) && time >= cooldown && ballCharge > 0 && TYPE != "karate"){
             animator.SetInteger("state", 3);
             time = 0;
 			GameObject p;
             attacktime = 0;
             if (direction){
 				p = Instantiate(projectile, transform.position - new Vector3((float)1, 0, 0), transform.rotation);
-				p.GetComponent<Rigidbody2D>().velocity = new Vector2(-25.0f, 10.0f);
+				p.GetComponent<Rigidbody2D>().velocity = new Vector2(-1.25f, 0.5f) * ballCharge;
 
 			}
 			else{
 				p = Instantiate(projectile, transform.position + new Vector3((float)1, 0, 0), transform.rotation);
-				p.GetComponent<Rigidbody2D>().velocity = new Vector2(25.0f, 10.0f);
+				p.GetComponent<Rigidbody2D>().velocity = new Vector2(1.25f, 0.5f) * ballCharge;
 			}
+            ballCharge = 0;
         }
 
         if(attacktime > 0.5) animator.SetInteger("state", 0);
