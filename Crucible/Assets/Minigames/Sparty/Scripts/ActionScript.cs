@@ -69,6 +69,7 @@ public class ActionScript : MonoBehaviour
 
         if (MinigameInputHelper.IsButton1Up(player) && time >= cooldown && ballCharge > 0 && TYPE != "karate"){
             animator.SetInteger("state", 3);
+            attacktime = 0;
             time = 0;
 			GameObject p;
             attacktime = 0;
@@ -84,7 +85,7 @@ public class ActionScript : MonoBehaviour
             ballCharge = 0;
         }
 
-        if(attacktime > 0.5) animator.SetInteger("state", 0);
+        if(attacktime > 0.5 && animator.GetInteger("state") == 3) animator.SetInteger("state", 0);
         attacktime += Time.deltaTime;
 
         if (button1 && time >= cooldown && TYPE != "tennis"){//kick
