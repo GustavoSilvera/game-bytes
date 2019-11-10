@@ -62,8 +62,8 @@ public class ButtonScript : MonoBehaviour
 		/*if(p1_hover && p2_hover && selected){
 			
 		}*/
-		 if(p1_hover && selected) this.GetComponent<Image>().color = Color.red;
-		else if (p2_hover && selected) this.GetComponent<Image>().color = Color.green;
+		 if(p1_hover && selected) this.GetComponent<Image>().color = Color.green;
+		else if (p2_hover && selected) this.GetComponent<Image>().color = Color.yellow;
 		else this.GetComponent<Image>().color = Color.white;
 		
 	}
