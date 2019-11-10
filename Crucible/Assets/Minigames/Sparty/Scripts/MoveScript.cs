@@ -6,9 +6,11 @@ public class MoveScript : MonoBehaviour {
 	Vector2 accel, vel, read_vel2;
 	Vector2 joystick, pos, pos2, pos2_old;
 	public string TYPE;
-	float g = 2;//gravity (m/s^2)
+	float g = (float)2.5;//gravity (m/s^2)
 	float friction = (float)0.5;//between 0 and 1;
 	float max_vel = 15;//maximum horizontal velocity
+	float jump_vel = 30;//innitial velocity for jump
+	float run_vel = 10;
 	int jump_count = 0;
 	bool double_jump;
 	int player = 0;
@@ -24,8 +26,8 @@ public class MoveScript : MonoBehaviour {
 	rect platform;
 	SFX sound;
 	GameObject other;
-    Animator animator;
-    float jumpTime = 0.0f;
+	Animator animator;
+	float jumpTime = 0.0f;
 
 	string other_player_name;
 	// Use this for initialization
@@ -41,23 +43,29 @@ public class MoveScript : MonoBehaviour {
 			other_player_name = "Player1";
 		}
 		other = GameObject.Find(other_player_name);
-        animator = gameObject.GetComponent<Animator>();
+		animator = gameObject.GetComponent<Animator>();
 		//init this player
 		if(TYPE == "karate"){
 			double_jump = true;
 			max_jump = 2;
+			jump_vel = 25;
+			run_vel = 7;
 			max_vel = 20;
-			g = 2;//less gravity
+			g = 2;//more floaty
 			friction = (float)0.7;//more friction
 		}
 		else if(TYPE == "tennis"){
 			double_jump = false;
 			max_jump = 1;
+			jump_vel = 35;
+			run_vel = 10;
 			max_vel = 15;
 		}
 		else{
 			double_jump = false;
 			max_vel = 12;
+			jump_vel = 30;
+			run_vel = 15;
 			friction = (float)0.8;//more friction
 		}
 		accel = new Vector3(0,-g);
@@ -81,20 +89,18 @@ public class MoveScript : MonoBehaviour {
 		return (new Vector2(x, y));
 	}
 	void jump(){
-        animator.SetInteger("state", 2);
-        jumpTime = 0;
+		animator.SetInteger("state", 2);
+		jumpTime = 0;
 		jump_count++;
 		sound.PlayMario();
-		vel.y = 40;//m/s BOOST
+		vel.y = jump_vel;//m/s BOOST
 	}
 	void run(float amnt){
-        //animator.SetInteger("state", 1);
 		if(amnt != 0) {
 			accel.x = amnt;
 		}
 		else {
 			accel.x = (float)(-friction*vel.x);
-		//	sound.StopRun();
 		}
 	}
 	bool within_bounds(Vector2 obj, rect r){
@@ -115,7 +121,7 @@ public class MoveScript : MonoBehaviour {
 		return a*a;
 	}
 	void collision(float ground){
-        animator.SetInteger("state", 0);
+		animator.SetInteger("state", 0);
 		if(!is_in){		
 			if (pos.y < ground + playerHeight/2.0 || vel.y > 0) {
 				//vel.x = -(float)((vel.x + sign(read_vel2.x)*5));//deflected
@@ -136,18 +142,18 @@ public class MoveScript : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-        animator.SetInteger("state", 0);
-        if (MinigameInputHelper.GetHorizontalAxis(player) < 0.1 &&
-            MinigameInputHelper.GetHorizontalAxis(player) > -0.1 &&
-            animator.GetInteger("state") < 2)
-            animator.SetInteger("state", 0);
-        else if(animator.GetInteger("state") < 2) animator.SetInteger("state", 1);
-        jumpTime += Time.deltaTime;
-        if (animator.GetInteger("state") == 2 && jumpTime > 1) {
-            jumpTime = 0;
-            animator.SetInteger("state", 0);
-        }
-        pos = set_vec2(this.transform.position.x, this.transform.position.y);
+		animator.SetInteger("state", 0);
+		if (MinigameInputHelper.GetHorizontalAxis(player) < 0.1 &&
+			MinigameInputHelper.GetHorizontalAxis(player) > -0.1 &&
+			animator.GetInteger("state") < 2)
+			animator.SetInteger("state", 0);
+		else if(animator.GetInteger("state") < 2) animator.SetInteger("state", 1);
+		jumpTime += Time.deltaTime;
+		if (animator.GetInteger("state") == 2 && jumpTime > 1) {
+			jumpTime = 0;
+			animator.SetInteger("state", 0);
+		}
+		pos = set_vec2(this.transform.position.x, this.transform.position.y);
 		pos2 = set_vec2(other.transform.position.x, other.transform.position.y);
 		read_vel2 = (pos2 - pos2_old)/Time.deltaTime;
 		pos2_old = set_vec2(other.transform.position.x, other.transform.position.y);
@@ -188,7 +194,7 @@ public class MoveScript : MonoBehaviour {
 				pos.x >= platform.pos.x - platform.width/2 && !up){
 				jump_count = 0;
 			}
-			run(joystick.x);
+			run((run_vel/10) * joystick.x);
 		}
 		else if(abs(joystick.x) > 0) run((float)0.9*joystick.x);//slight air movement
 		else accel.x = (float)(-0.001*vel.x);
