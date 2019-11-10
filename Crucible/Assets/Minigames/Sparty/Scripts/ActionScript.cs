@@ -14,6 +14,8 @@ public class ActionScript : MonoBehaviour
 	GameObject other, shield;
 
 	public bool defenseOn;
+    float defCooldown = 4.0f;
+    //int shieldHits = 0;
 
 	float cooldown = 0.5f;
 	float time = 0.0f;
@@ -21,7 +23,11 @@ public class ActionScript : MonoBehaviour
     [SerializeField]
     public float speed = 25.0f;
     SpriteRenderer spriteRenderer;
-	private void Start()
+
+    Animator animator;
+    float attacktime = 0.0f;
+
+    private void Start()
 	{
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         if (gameObject.name == "Player1"){
@@ -37,7 +43,9 @@ public class ActionScript : MonoBehaviour
 		shield = GameObject.Find("p" + player + "Bubble");
 		TYPE = this.GetComponent<MoveScript>().TYPE;//player type
 		Debug.Log(TYPE);
-	}
+
+        animator = gameObject.GetComponent<Animator>();
+    }
 
 	void Update(){
         if (direction) spriteRenderer.flipX = false;
@@ -54,35 +62,55 @@ public class ActionScript : MonoBehaviour
 		time += Time.deltaTime;
 		if (horizontal_axis < -0.1) direction = true; //left
 		else if (horizontal_axis > 0.1) direction = false; //right
-		if (button1 && time >= cooldown && TYPE != "karate"){
-			time = 0;
+
+        if (button1 && time >= cooldown && TYPE != "karate"){
+            animator.SetInteger("state", 3);
+            time = 0;
 			GameObject p;
-			if (direction){
+            attacktime = 0;
+            if (direction){
 				p = Instantiate(projectile, transform.position - new Vector3((float)1, 0, 0), transform.rotation);
 				p.GetComponent<Rigidbody2D>().velocity = new Vector2(-25.0f, 10.0f);
+
 			}
 			else{
 				p = Instantiate(projectile, transform.position + new Vector3((float)1, 0, 0), transform.rotation);
 				p.GetComponent<Rigidbody2D>().velocity = new Vector2(25.0f, 10.0f);
 			}
-		}
-		if (button1 && time >= cooldown && TYPE != "tennis"){//kick
+        }
+
+        if(attacktime > 0.5) animator.SetInteger("state", 0);
+        attacktime += Time.deltaTime;
+
+        if (button1 && time >= cooldown && TYPE != "tennis"){//kick
 			double xdist = pos_x - o_pos_x;
-			if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
+            /*if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
+                (pos_x > 0 && xdist < 0 && xdist > -2)) &&
+                other.GetComponent<ActionScript>().defenseOn)
+            {
+                other.GetComponent<ActionScript>().shieldHits = other.GetComponent<ActionScript>().shieldHits + 1;
+            }*/
+            if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
 				(pos_x > 0 && xdist < 0 && xdist > -2)) &&
-				!other.GetComponent<ActionScript>().defenseOn
-				)
+				!other.GetComponent<ActionScript>().defenseOn)
 			{
 				gameObject.GetComponent<HealthScript>().TakeDamage(1);
 			}
-			if (direction && ((pos_x < 0 && xdist < 0 && xdist > -2) ||
+
+            /*if (direction && ((pos_x < 0 && xdist < 0 && xdist > -2) ||
+                (pos_x > 0 && xdist > 0 && xdist < 2)) &&
+                other.GetComponent<ActionScript>().defenseOn)
+            {
+                other.GetComponent<ActionScript>().shieldHits++;
+            }*/
+            if (direction && ((pos_x < 0 && xdist < 0 && xdist > -2) ||
 				(pos_x > 0 && xdist > 0 && xdist < 2)) &&
 				!other.GetComponent<ActionScript>().defenseOn)
 			{
 				gameObject.GetComponent<HealthScript>().TakeDamage(1);
 			}
 		}
-		if (button2 && time >= cooldown && TYPE != "tennis"){//punch
+		if (button2 && time >= cooldown && TYPE != "tennis"){//punch //IS THERE A SHIELD CHECK HERE??
 			double xdist = pos_x - o_pos_x;
 			if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
 				(pos_x > 0 && xdist < 0 && xdist > -2)))
@@ -95,10 +123,18 @@ public class ActionScript : MonoBehaviour
 				gameObject.GetComponent<HealthScript>().TakeDamage(1);
 			}
 		}
-		if (button2 && TYPE != "baseball"){
+        defCooldown += Time.deltaTime;
+		if (button2 && TYPE != "baseball" && defCooldown > 3){
 			shield.transform.localScale = new Vector3(1, 1, 1);
 			defenseOn = true;
+            defCooldown = 0;
 		}
+        /*if(shieldHits > 3)
+        {
+            defenseOn = false;
+            shieldHits = 0;
+            defCooldown = 0;
+        }*/
 		if (button2Up){
 			shield.transform.localScale = new Vector3(0, 0, 0);
 			defenseOn = false;

@@ -6,7 +6,7 @@ public class MoveScript : MonoBehaviour {
 	Vector2 accel, vel, read_vel2;
 	Vector2 joystick, pos, pos2, pos2_old;
 	public string TYPE;
-	float g = 3;//gravity (m/s^2)
+	float g = 2;//gravity (m/s^2)
 	float friction = (float)0.5;//between 0 and 1;
 	float max_vel = 15;//maximum horizontal velocity
 	int jump_count = 0;
@@ -25,6 +25,7 @@ public class MoveScript : MonoBehaviour {
 	SFX sound;
 	GameObject other;
     Animator animator;
+    float jumpTime = 0.0f;
 
 	string other_player_name;
 	// Use this for initialization
@@ -81,9 +82,10 @@ public class MoveScript : MonoBehaviour {
 	}
 	void jump(){
         animator.SetInteger("state", 2);
+        jumpTime = 0;
 		jump_count++;
 		sound.PlayMario();
-		vel.y = 30;//m/s BOOST	
+		vel.y = 40;//m/s BOOST
 	}
 	void run(float amnt){
         //animator.SetInteger("state", 1);
@@ -135,8 +137,16 @@ public class MoveScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         animator.SetInteger("state", 0);
-        if (MinigameInputHelper.GetHorizontalAxis(player) < 0.1 && MinigameInputHelper.GetHorizontalAxis(player) > -0.1) animator.SetInteger("state", 0);
-        else animator.SetInteger("state", 1);
+        if (MinigameInputHelper.GetHorizontalAxis(player) < 0.1 &&
+            MinigameInputHelper.GetHorizontalAxis(player) > -0.1 &&
+            animator.GetInteger("state") < 2)
+            animator.SetInteger("state", 0);
+        else if(animator.GetInteger("state") < 2) animator.SetInteger("state", 1);
+        jumpTime += Time.deltaTime;
+        if (animator.GetInteger("state") == 2 && jumpTime > 1) {
+            jumpTime = 0;
+            animator.SetInteger("state", 0);
+        }
         pos = set_vec2(this.transform.position.x, this.transform.position.y);
 		pos2 = set_vec2(other.transform.position.x, other.transform.position.y);
 		read_vel2 = (pos2 - pos2_old)/Time.deltaTime;
