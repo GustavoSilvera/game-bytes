@@ -19,7 +19,7 @@ public class ActionScript : MonoBehaviour
 
 	float cooldown = 0.5f;
 	float time = 0.0f;
-	string TYPE = "null";
+	int TYPE = 0;
     [SerializeField]
     public float speed = 25.0f;
     SpriteRenderer spriteRenderer;
@@ -65,10 +65,10 @@ public class ActionScript : MonoBehaviour
 		if (horizontal_axis < -0.1) direction = true; //left
 		else if (horizontal_axis > 0.1) direction = false; //right
 
-        if ((button1 || MinigameInputHelper.IsButton1Held(player)) && time >= cooldown && TYPE != "karate" && ballCharge < 30) ballCharge++;
+        if ((button1 || MinigameInputHelper.IsButton1Held(player)) && time >= cooldown && TYPE != 4 && ballCharge < 30) ballCharge++;
 
-        if (MinigameInputHelper.IsButton1Up(player) && time >= cooldown && ballCharge > 0 && TYPE != "karate"){
-            animator.SetInteger("state", 3);
+        if (MinigameInputHelper.IsButton1Up(player) && time >= cooldown && ballCharge > 0 && TYPE != 4){
+            animator.SetInteger("state", 3 + TYPE);
             attacktime = 0;
             time = 0;
 			GameObject p;
@@ -85,10 +85,10 @@ public class ActionScript : MonoBehaviour
             ballCharge = 0;
         }
 
-        if(attacktime > 0.5 && animator.GetInteger("state") == 3) animator.SetInteger("state", 0);
+        if(attacktime > 0.5 && animator.GetInteger("state") == 3 + TYPE) animator.SetInteger("state", 0 + TYPE);
         attacktime += Time.deltaTime;
 
-        if (button1 && time >= cooldown && TYPE != "tennis"){//kick
+        if (button1 && time >= cooldown && TYPE != 0){//kick
 			double xdist = pos_x - o_pos_x;
             /*if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
                 (pos_x > 0 && xdist < 0 && xdist > -2)) &&
@@ -116,7 +116,7 @@ public class ActionScript : MonoBehaviour
 				gameObject.GetComponent<HealthScript>().TakeDamage(1);
 			}
 		}
-		if (button2 && time >= cooldown && TYPE != "tennis"){//punch //IS THERE A SHIELD CHECK HERE??
+		if (button2 && time >= cooldown && TYPE != 0){//punch //IS THERE A SHIELD CHECK HERE??
 			double xdist = pos_x - o_pos_x;
 			if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
 				(pos_x > 0 && xdist < 0 && xdist > -2)))
@@ -130,7 +130,7 @@ public class ActionScript : MonoBehaviour
 			}
 		}
         defCooldown += Time.deltaTime;
-		if (button2 && TYPE != "baseball" && defCooldown > 3){
+		if (button2 && TYPE != 8 && defCooldown > 3){
 			shield.transform.localScale = new Vector3(1, 1, 1);
 			defenseOn = true;
             defCooldown = 0;
