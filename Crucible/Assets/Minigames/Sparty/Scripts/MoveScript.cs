@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveScript : MonoBehaviour {
 	Vector2 accel, vel, read_vel2;
 	Vector2 joystick, pos, pos2, pos2_old;
-	public string TYPE;
+	public int TYPE; //0 for tennis, 4 for karate
 	float g = (float)2.5;//gravity (m/s^2)
 	float friction = (float)0.5;//between 0 and 1;
 	float max_vel = 15;//maximum horizontal velocity
@@ -45,7 +45,8 @@ public class MoveScript : MonoBehaviour {
 		other = GameObject.Find(other_player_name);
 		animator = gameObject.GetComponent<Animator>();
 		//init this player
-		if(TYPE == "karate"){
+		if(TYPE == 4){ //karate
+            animator.SetInteger("state", 4);
 			double_jump = true;
 			max_jump = 2;
 			jump_vel = 25;
@@ -54,7 +55,7 @@ public class MoveScript : MonoBehaviour {
 			g = 2;//more floaty
 			friction = (float)0.7;//more friction
 		}
-		else if(TYPE == "tennis"){
+		else if(TYPE == 0){ //tennis
 			double_jump = false;
 			max_jump = 1;
 			jump_vel = 35;
