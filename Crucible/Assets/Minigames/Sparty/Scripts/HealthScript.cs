@@ -15,31 +15,32 @@ public class HealthScript : MonoBehaviour
 	//public Slider healthSlider; //reference to UI health bar
 
 	int howMany;
-    int circleCount;
+	int circleCount;
 
 	int player;
 	GameObject other;
-
+	Color orange;
 	// Use this for initialization
 	void Start()
 	{
+		orange = new Color(1f, 0.67f, 0f, 1f);
 		if (gameObject.name == "Player1")
 		{
 			player = 1;
 			other = GameObject.Find("Player2");
-	        gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-	        other.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-	    }
+		    gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+		    other.GetComponent<Renderer>().material.SetColor("_Color", orange);
+		}
 		else
 		{
 			player = 2;
 			other = GameObject.Find("Player1");
-	        gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-	        other.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-	    }
-	    howMany = 0;
-        GameObject.Find("p" + player + "pointcircle").transform.localScale = new Vector3(0, 0, 0);
-    }
+		    gameObject.GetComponent<Renderer>().material.SetColor("_Color", orange);
+		    other.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+		}
+		howMany = 0;
+	    GameObject.Find("p" + player + "pointcircle").transform.localScale = new Vector3(0, 0, 0);
+	}
 
 	// Update is called once per frame
 	void Update()
@@ -54,22 +55,22 @@ public class HealthScript : MonoBehaviour
 			// Remove the recorded 2 seconds.
 			timer = timer - waitTime;
 			var colorer = other.GetComponent<Renderer>();
-			if(player == 1) colorer.material.SetColor("_Color", Color.yellow);
-	        else colorer.material.SetColor("_Color", Color.green);
-            //TakeDamage(2);
-            howMany++;
-            circleCount++;
-            if(circleCount == 2)
-            {
-                GameObject.Find("p" + player + "pointcircle").transform.localScale = new Vector3(0, 0, 0);
-            }
-	    }
-	    if (howMany > 3 && gameObject.transform.position.y < -10)
-	    {
-	        other.GetComponent<HealthScript>().TakeDamage(1);
-	        howMany = 0;
-	    }
-	    double xdist = gameObject.transform.position.x - other.transform.position.x;
+			if(player == 1) colorer.material.SetColor("_Color", new Color(1f, 0.67f, 0f, 1f));
+		    else colorer.material.SetColor("_Color", Color.green);
+	        //TakeDamage(2);
+	        howMany++;
+	        circleCount++;
+	        if(circleCount == 2)
+	        {
+	            GameObject.Find("p" + player + "pointcircle").transform.localScale = new Vector3(0, 0, 0);
+	        }
+		}
+		if (howMany > 3 && gameObject.transform.position.y < -10)
+		{
+		    other.GetComponent<HealthScript>().TakeDamage(1);
+		    howMany = 0;
+		}
+		double xdist = gameObject.transform.position.x - other.transform.position.x;
 		double ydist = gameObject.transform.position.y - other.transform.position.y;
 		//if (xdist < 1 && xdist > -1 && ydist > 0.5 && ydist < 1.1) TakeDamage(1);
 	}
@@ -79,9 +80,9 @@ public class HealthScript : MonoBehaviour
 		MinigameController.Instance.AddScore(player, amount);
 		var colorer = other.GetComponent<Renderer>();
 		colorer.material.SetColor("_Color", Color.red);
-        GameObject.Find("p" + player + "pointcircle").transform.localScale = new Vector3(1, 1, 1);
-        circleCount = 0;
-        //playerHealth -= amount;
-        //healthSlider.value = playerHealth;
-    }
+	    GameObject.Find("p" + player + "pointcircle").transform.localScale = new Vector3(1, 1, 1);
+	    circleCount = 0;
+	    //playerHealth -= amount;
+	    //healthSlider.value = playerHealth;
+	}
 }
