@@ -90,7 +90,6 @@ public class ActionScript : MonoBehaviour
         }
 
         if(attacktime > 0.5 && animator.GetInteger("state") == 3 + TYPE) animator.SetInteger("state", 0 + TYPE);
-        attacktime += Time.deltaTime;
 
         if (button1 && time >= cooldown && TYPE != 0){//kick
 			double xdist = pos_x - o_pos_x;
@@ -150,9 +149,15 @@ public class ActionScript : MonoBehaviour
                 }
 			}
 		}
-		if (button2 && time >= cooldown && TYPE != 0){//punch //IS THERE A SHIELD CHECK HERE??
-			double xdist = pos_x - o_pos_x;
-			if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
+        if (button1 && TYPE != 0) {
+            Debug.Log("karate attack");
+            animator.SetInteger("state", 3 + TYPE);
+            Debug.Log(animator.GetInteger("state"));
+            attacktime = 0;
+        }
+		if (button1 && time >= cooldown && TYPE != 0 && !other.GetComponent<ActionScript>().defenseOn){//punch //IS THERE A SHIELD CHECK HERE?? yes!
+            double xdist = pos_x - o_pos_x;
+            if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
 				(pos_x > 0 && xdist < 0 && xdist > -2)))
 			{
 				gameObject.GetComponent<HealthScript>().TakeDamage(1);
@@ -179,5 +184,6 @@ public class ActionScript : MonoBehaviour
 			shield.transform.localScale = new Vector3(0, 0, 0);
 			defenseOn = false;
 		}
-	}
+        attacktime += Time.deltaTime;
+    }
 }

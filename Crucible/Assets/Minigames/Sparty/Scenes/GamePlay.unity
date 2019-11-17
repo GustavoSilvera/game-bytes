@@ -6310,8 +6310,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 1566584131881822960, guid: e680176a5460c463a836fe405e79145b,
     type: 3}
+  shield: {fileID: 0}
   defenseOn: 0
+  defCooldown: 4
   speed: 4
+  shieldHits: 0
 --- !u!61 &729832747
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8222,8 +8225,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 1566584131881822960, guid: e680176a5460c463a836fe405e79145b,
     type: 3}
+  shield: {fileID: 0}
   defenseOn: 0
+  defCooldown: 4
   speed: 4
+  shieldHits: 0
 --- !u!50 &1576451240
 Rigidbody2D:
   serializedVersion: 4
