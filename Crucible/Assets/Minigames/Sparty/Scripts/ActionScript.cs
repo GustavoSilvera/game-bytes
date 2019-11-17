@@ -8,13 +8,13 @@ using UnityEngine;
 
 public class ActionScript : MonoBehaviour
 {
-	public GameObject projectile;
+	public GameObject projectile, shield;
 	int player;
 	bool direction;
-	GameObject other, shield;
+	GameObject other;
 
 	public bool defenseOn;
-    float defCooldown = 4.0f;
+    public float defCooldown = 4.0f;
     //int shieldHits = 0;
 
 	float cooldown = 0.5f;
@@ -28,6 +28,7 @@ public class ActionScript : MonoBehaviour
     float attacktime = 0.0f;
 
     int ballCharge = 0;
+    public int shieldHits;
 
     private void Start()
 	{
@@ -47,6 +48,7 @@ public class ActionScript : MonoBehaviour
 		Debug.Log(TYPE);
 
         animator = gameObject.GetComponent<Animator>();
+        shieldHits = 0;
     }
 
 	void Update(){
@@ -73,12 +75,14 @@ public class ActionScript : MonoBehaviour
             time = 0;
 			GameObject p;
             attacktime = 0;
-            if (direction){
+            if (direction && !gameObject.GetComponent<ActionScript>().defenseOn)
+            {
 				p = Instantiate(projectile, transform.position - new Vector3((float)1, 0, 0), transform.rotation);
 				p.GetComponent<Rigidbody2D>().velocity = new Vector2(-1.25f, 0.5f) * ballCharge;
 
 			}
-			else{
+			else if (!gameObject.GetComponent<ActionScript>().defenseOn)
+            {
 				p = Instantiate(projectile, transform.position + new Vector3((float)1, 0, 0), transform.rotation);
 				p.GetComponent<Rigidbody2D>().velocity = new Vector2(1.25f, 0.5f) * ballCharge;
 			}
@@ -97,10 +101,25 @@ public class ActionScript : MonoBehaviour
                 other.GetComponent<ActionScript>().shieldHits = other.GetComponent<ActionScript>().shieldHits + 1;
             }*/
             if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
-				(pos_x > 0 && xdist < 0 && xdist > -2)) &&
-				!other.GetComponent<ActionScript>().defenseOn)
+				(pos_x > 0 && xdist < 0 && xdist > -2)))
 			{
-				gameObject.GetComponent<HealthScript>().TakeDamage(1);
+                if (!other.GetComponent<ActionScript>().defenseOn)
+                {
+                    gameObject.GetComponent<HealthScript>().TakeDamage(1);
+                    Debug.Log("reached here");
+                }
+                else
+                {
+                    shieldHits++;
+                    Debug.Log(shieldHits);
+                    if (shieldHits >= 3)
+                    {
+                        shield.transform.localScale = new Vector3(0, 0, 0);
+                        defenseOn = false;
+                        shieldHits = 0;
+                        defCooldown = 0;
+                    }
+                }
 			}
 
             /*if (direction && ((pos_x < 0 && xdist < 0 && xdist > -2) ||
@@ -110,10 +129,25 @@ public class ActionScript : MonoBehaviour
                 other.GetComponent<ActionScript>().shieldHits++;
             }*/
             if (direction && ((pos_x < 0 && xdist < 0 && xdist > -2) ||
-				(pos_x > 0 && xdist > 0 && xdist < 2)) &&
-				!other.GetComponent<ActionScript>().defenseOn)
+                (pos_x > 0 && xdist > 0 && xdist < 2)))
 			{
-				gameObject.GetComponent<HealthScript>().TakeDamage(1);
+                if (!other.GetComponent<ActionScript>().defenseOn)
+                {
+                    gameObject.GetComponent<HealthScript>().TakeDamage(1);
+                    Debug.Log("reached here");
+                }
+				else
+                {
+                    shieldHits++;
+                    Debug.Log(shieldHits);
+                    if (shieldHits >= 3)
+                    {
+                        shield.transform.localScale = new Vector3(0, 0, 0);
+                        defenseOn = false;
+                        shieldHits = 0;
+                        defCooldown = 0;
+                    }
+                }
 			}
 		}
 		if (button2 && time >= cooldown && TYPE != 0){//punch //IS THERE A SHIELD CHECK HERE??
