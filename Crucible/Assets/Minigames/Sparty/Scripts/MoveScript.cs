@@ -131,8 +131,22 @@ public class MoveScript : MonoBehaviour {
 			}
 			vel.y = -(float)(vel.y);
 			if(pos.y > ground && !(vel.y < 0)){//since velocity just got inverted... checking that it WAS going down
-				if(pos.y > pos2.y && !GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn){
-					this.GetComponent<HealthScript>().TakeDamage(1);
+				if(pos.y > pos2.y){
+                    if (!GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn)
+                    {
+                        this.GetComponent<HealthScript>().TakeDamage(1);
+                    }
+					else
+                    {
+                        GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits++;
+                        if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
+                        {
+                            GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
+                            GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
+                            GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits = 0;
+                            GameObject.Find(other_player_name).GetComponent<ActionScript>().defCooldown = 0;
+                        }
+                    }
 					sound.PlayStomp();
 				}		
 				//float inside = sign(pos2.y - pos.y)*(1 - abs(pos2.y - pos.y));
