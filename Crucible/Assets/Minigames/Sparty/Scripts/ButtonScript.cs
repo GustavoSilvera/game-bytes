@@ -12,14 +12,9 @@ public class ButtonScript : MonoBehaviour
 	int current_place = 1;
 	GameObject p1Select, p2Select;
 
-	void Start()
-	{
+	void Start(){
 		p1Select = GameObject.Find("Player1Select");
 		p2Select = GameObject.Find("Player2Select ");
-		//gameObject.name == "Player1"
-		//tennis = GameObject.Find("TennisButton");
-		//karate = GameObject.Find("KarateButton");
-		//baseball = GameObject.Find("BaseballButton");
 		if(this.name == "TennisButton"){
 			hover = true;
 			current_place = 0;
@@ -39,9 +34,9 @@ public class ButtonScript : MonoBehaviour
 		//Debug.Log(current_place);
 		//Debug.Log(this.name);
 	}
+
 	// Update is called once per frame
-	void Update()
-	{
+	void Update(){
 		int cursor_p1 = p1Select.GetComponent<MenuScript>().place;
 		int cursor_p2 = p2Select.GetComponent<MenuScript>().place;
 		bool p1_select = p1Select.GetComponent<MenuScript>().select;

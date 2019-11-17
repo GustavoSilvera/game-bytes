@@ -9,7 +9,7 @@ public class MenuScript : MonoBehaviour
 	// Start is called before the first frame update
 	public int place = 0;
 	public bool select = false;
-	public string TYPE;
+	public int TYPE;
 	int player = 0;
 	bool up = false;
 	bool down = false;
@@ -21,7 +21,7 @@ public class MenuScript : MonoBehaviour
 		if(this.name == "Player1Select") player = 0;
 		else player = 1;
 		place = 0;
-		TYPE = "null";//nothing yet
+		TYPE = -1;//nothing yet
 		//player2 = GameObject.Find("Player2Select");
 	}
 
@@ -58,11 +58,11 @@ public class MenuScript : MonoBehaviour
 			select = !select;
 		}
 		if(place == 0){
-			TYPE = "tennis";
+			TYPE = 0;
 		}else if(place == 1){
-			TYPE = "karate";
+			TYPE = 4;
 		}else if(place == 2){
-			TYPE = "baseball";
+			TYPE = 8;
 		}
 	}
 }

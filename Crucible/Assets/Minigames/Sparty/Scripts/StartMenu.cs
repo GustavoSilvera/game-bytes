@@ -9,6 +9,7 @@ public class StartMenu : MonoBehaviour
 	GameObject p1Select, p2Select;
 	GameObject player1, player2;
 	GameObject main_game;
+	int count = 0;
 	void Start()
 	{
 		p1Select = GameObject.Find("Player1Select");
@@ -21,7 +22,7 @@ public class StartMenu : MonoBehaviour
 		if(p2Select == null) Debug.LogError("could not find p2");
 		if(player1 == null) Debug.LogError("could not find player1");
 		if(player2 == null) Debug.LogError("could not find player2");
-
+		count = 0;
 		main_game.gameObject.SetActive(false);//turns off the game
 	}
 
@@ -30,13 +31,17 @@ public class StartMenu : MonoBehaviour
 	{
 		bool p1_select = p1Select.GetComponent<MenuScript>().select;
 		bool p2_select = p2Select.GetComponent<MenuScript>().select;
-		string p1_string = p1Select.GetComponent<MenuScript>().TYPE;
-		string p2_string = p2Select.GetComponent<MenuScript>().TYPE;
+		int p1_string = p1Select.GetComponent<MenuScript>().TYPE;
+		int p2_string = p2Select.GetComponent<MenuScript>().TYPE;
 		if(p1_select && p2_select){//BEGIN GAME
+			count++;
 			player1.GetComponent<MoveScript>().TYPE = p1_string;
 			player2.GetComponent<MoveScript>().TYPE = p2_string;
-			main_game.gameObject.SetActive(true);
-			this.gameObject.SetActive(false);			
+			if(count > 50){//timer
+				main_game.gameObject.SetActive(true);
+				this.gameObject.SetActive(false);
+			}
 		}
+		
 	}
 }
