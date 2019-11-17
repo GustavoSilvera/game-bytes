@@ -29,17 +29,45 @@ public class Projectile : MonoBehaviour
 
 	    double xdist = gameObject.transform.position.x - p1.transform.position.x;
 	    double ydist = gameObject.transform.position.y - p1.transform.position.y;
-	    if (xdist > -0.5 && xdist < 0.5 && ydist < 0.5 && ydist > -0.5 && !p1.GetComponent<ActionScript>().defenseOn)
+	    if (xdist > -0.5 && xdist < 0.5 && ydist < 0.5 && ydist > -0.5)
 	    {
-	        p2.GetComponent<HealthScript>().TakeDamage(1);
-			Destroy(gameObject);
+            if (!p1.GetComponent<ActionScript>().defenseOn)
+            {
+                p2.GetComponent<HealthScript>().TakeDamage(1);
+            }
+            else
+            {
+                p1.GetComponent<ActionScript>().shieldHits++;
+                if (p1.GetComponent<ActionScript>().shieldHits >= 3)
+                {
+                    p1.GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
+                    p1.GetComponent<ActionScript>().defenseOn = false;
+                    p1.GetComponent<ActionScript>().shieldHits = 0;
+                    p1.GetComponent<ActionScript>().defCooldown = 0;
+                }
+            }
+            Destroy(gameObject);
 
 		}
 	    xdist = gameObject.transform.position.x - p2.transform.position.x;
 	    ydist = gameObject.transform.position.y - p2.transform.position.y;
-	    if (xdist > -0.5 && xdist < 0.5 && ydist < 0.5 && ydist > -0.5 && !p2.GetComponent<ActionScript>().defenseOn)
+	    if (xdist > -0.5 && xdist < 0.5 && ydist < 0.5 && ydist > -0.5)
 	    {
-	        p1.GetComponent<HealthScript>().TakeDamage(1);
+            if (!p2.GetComponent<ActionScript>().defenseOn)
+            {
+                p1.GetComponent<HealthScript>().TakeDamage(1);
+            }
+            else
+            {
+                p2.GetComponent<ActionScript>().shieldHits++;
+                if (p2.GetComponent<ActionScript>().shieldHits >= 3)
+                {
+                    p2.GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
+                    p2.GetComponent<ActionScript>().defenseOn = false;
+                    p2.GetComponent<ActionScript>().shieldHits = 0;
+                    p2.GetComponent<ActionScript>().defCooldown = 0;
+                }
+            }
 			Destroy(gameObject);
 		}
 	}
