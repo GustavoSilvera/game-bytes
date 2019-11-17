@@ -62,7 +62,7 @@ public class MenuScript : MonoBehaviour
 		}else if(place == 1){
 			TYPE = 4;
 		}else if(place == 2){
-			TYPE = 8;
+			TYPE = ((int)(Random.Range(0, 2)) * 4);//random between the two
 		}
 	}
 }

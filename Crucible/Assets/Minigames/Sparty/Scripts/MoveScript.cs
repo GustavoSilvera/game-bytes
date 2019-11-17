@@ -46,7 +46,7 @@ public class MoveScript : MonoBehaviour {
 		animator = gameObject.GetComponent<Animator>();
 		//init this player
 		if(TYPE == 4){ //karate
-            animator.SetInteger("state", 4);
+	        animator.SetInteger("state", 4);
 			double_jump = true;
 			max_jump = 2;
 			jump_vel = 25;
