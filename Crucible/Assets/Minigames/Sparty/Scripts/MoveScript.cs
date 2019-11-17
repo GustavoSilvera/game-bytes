@@ -90,7 +90,7 @@ public class MoveScript : MonoBehaviour {
 		return (new Vector2(x, y));
 	}
 	void jump(){
-		animator.SetInteger("state", 2);
+		animator.SetInteger("state", 2 + TYPE);
 		jumpTime = 0;
 		jump_count++;
 		sound.PlayMario();
@@ -122,7 +122,7 @@ public class MoveScript : MonoBehaviour {
 		return a*a;
 	}
 	void collision(float ground){
-		animator.SetInteger("state", 0);
+		animator.SetInteger("state", 0 + TYPE);
 		if(!is_in){		
 			if (pos.y < ground + playerHeight/2.0 || vel.y > 0) {
 				//vel.x = -(float)((vel.x + sign(read_vel2.x)*5));//deflected
@@ -143,16 +143,16 @@ public class MoveScript : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		animator.SetInteger("state", 0);
+		animator.SetInteger("state", 0 + TYPE);
 		if (MinigameInputHelper.GetHorizontalAxis(player) < 0.1 &&
 			MinigameInputHelper.GetHorizontalAxis(player) > -0.1 &&
-			animator.GetInteger("state") < 2)
-			animator.SetInteger("state", 0);
-		else if(animator.GetInteger("state") < 2) animator.SetInteger("state", 1);
+			animator.GetInteger("state") < 2 + TYPE)
+			animator.SetInteger("state", 0 + TYPE);
+		else if(animator.GetInteger("state") < 2 + TYPE) animator.SetInteger("state", 1 + TYPE);
 		jumpTime += Time.deltaTime;
-		if (animator.GetInteger("state") == 2 && jumpTime > 1) {
+		if (animator.GetInteger("state") == 2 + TYPE && jumpTime > 1 + TYPE) {
 			jumpTime = 0;
-			animator.SetInteger("state", 0);
+			animator.SetInteger("state", 0 + TYPE);
 		}
 		pos = set_vec2(this.transform.position.x, this.transform.position.y);
 		pos2 = set_vec2(other.transform.position.x, other.transform.position.y);
