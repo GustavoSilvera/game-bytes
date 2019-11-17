@@ -27,14 +27,9 @@ public class ButtonScript : MonoBehaviour
 			hover = false;
 			current_place = 2;
 		}
-
 		if(p1Select == null) Debug.LogError("could not find Player1Select");
 		if(p2Select == null) Debug.LogError("could not find Player2Select");
-
-		//Debug.Log(current_place);
-		//Debug.Log(this.name);
 	}
-
 	// Update is called once per frame
 	void Update(){
 		int cursor_p1 = p1Select.GetComponent<MenuScript>().place;
