@@ -14,8 +14,8 @@ public class MoveScript : MonoBehaviour {
 	int jump_count = 0;
 	bool double_jump;
 	int player = 0;
-	double playerWidth = 1;
-	double playerHeight = 1;
+	public double playerWidth = 2;
+	public double playerHeight = 2;
 	bool up = false;
 	int max_jump=1;
 	bool is_in = false;
@@ -46,7 +46,7 @@ public class MoveScript : MonoBehaviour {
 		animator = gameObject.GetComponent<Animator>();
 		//init this player
 		if(TYPE == 4){ //karate
-	        animator.SetInteger("state", 4);
+			animator.SetInteger("state", 4);
 			double_jump = true;
 			max_jump = 2;
 			jump_vel = 25;
@@ -109,7 +109,7 @@ public class MoveScript : MonoBehaviour {
 		return(	
 			obj.x <= r.pos.x + rad && 
 			obj.x >= r.pos.x - rad &&
-			obj.y <= r.pos.y + r.height// &&
+			obj.y <= r.pos.y + r.height + (0.6*playerHeight)// &&
 			//obj.y >= r.pos.y - r.height
 		);
 	}
@@ -132,21 +132,21 @@ public class MoveScript : MonoBehaviour {
 			vel.y = -(float)(vel.y);
 			if(pos.y > ground && !(vel.y < 0)){//since velocity just got inverted... checking that it WAS going down
 				if(pos.y > pos2.y){
-                    if (!GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn)
-                    {
-                        this.GetComponent<HealthScript>().TakeDamage(1);
-                    }
+					if (!GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn)
+					{
+					    this.GetComponent<HealthScript>().TakeDamage(1);
+					}
 					else
-                    {
-                        GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits++;
-                        if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
-                        {
-                            GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
-                            GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
-                            GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits = 0;
-                            GameObject.Find(other_player_name).GetComponent<ActionScript>().defCooldown = 0;
-                        }
-                    }
+					{
+					    GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits++;
+					    if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
+					    {
+					        GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
+					        GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
+					        GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits = 0;
+					        GameObject.Find(other_player_name).GetComponent<ActionScript>().defCooldown = 0;
+					    }
+					}
 					sound.PlayStomp();
 				}		
 				//float inside = sign(pos2.y - pos.y)*(1 - abs(pos2.y - pos.y));
@@ -176,7 +176,7 @@ public class MoveScript : MonoBehaviour {
 			MinigameInputHelper.GetHorizontalAxis(player), 
 			MinigameInputHelper.GetVerticalAxis(player)
 		);
-		float ground = (platform.pos.y+platform.height);
+		float ground = (platform.pos.y+platform.height + (float)(0.3*playerHeight));
 		if( joystick.y > 0 && (up == false || pos.y <= ground + 0.1))
 		{
 			if( pos.x <= platform.pos.x + platform.width/2 &&
@@ -184,7 +184,6 @@ public class MoveScript : MonoBehaviour {
 				pos.y <= ground ) jump_count = 0;
 			if(jump_count < max_jump){// || (double_jump && jump_count < 1)){
 				jump();
-				//audioSrc.PlayClipAtPoint(gameObject.GetComponent<AudioSource>.clip, pos);
 				up = true;
 			}
 		}
@@ -224,6 +223,7 @@ public class MoveScript : MonoBehaviour {
 		else{
 			is_in = false;
 		}
+		this.transform.localScale = new Vector3((float)(1.2*playerWidth), (float)(1.2*playerHeight), 1);
 		transform.Translate(
 			vel.x*Time.deltaTime, 
 			vel.y*Time.deltaTime, 
