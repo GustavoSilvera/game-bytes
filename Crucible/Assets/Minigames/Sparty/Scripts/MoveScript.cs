@@ -25,11 +25,11 @@ public class MoveScript : MonoBehaviour {
 	};
 	rect platform;
 	SFX sound;
-	GameObject other;
+	GameObject other, arrow;
 	Animator animator;
 	float jumpTime = 0.0f;
 
-	string other_player_name;
+	string other_player_name, arrow_name;
 	// Use this for initialization
 	void Start () {
 		sound = FindObjectOfType<SFX>();
@@ -37,12 +37,15 @@ public class MoveScript : MonoBehaviour {
 		if (gameObject.name == "Player1"){
 			player = 0;
 			other_player_name = "Player2";
+			arrow_name = "arrow0";
 		}
 		else{
 			player = 1;
 			other_player_name = "Player1";
+			arrow_name = "arrow1";
 		}
 		other = GameObject.Find(other_player_name);
+		arrow = GameObject.Find(arrow_name);
 		animator = gameObject.GetComponent<Animator>();
 		//init this player
 		if(TYPE == 4){ //karate
@@ -141,10 +144,10 @@ public class MoveScript : MonoBehaviour {
 						GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits++;
 						if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
 						{
-						    GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
-						    GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
-						    GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits = 0;
-						    GameObject.Find(other_player_name).GetComponent<ActionScript>().defCooldown = 0;
+							GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
+							GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
+							GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits = 0;
+							GameObject.Find(other_player_name).GetComponent<ActionScript>().defCooldown = 0;
 						}
 					}
 					sound.PlayStomp();
@@ -199,8 +202,9 @@ public class MoveScript : MonoBehaviour {
 			double spawn = -6.5;//assuming fell on right side
 			if(pos2.x < platform.pos.x) spawn = 6.5;//actually fell on the left side
 			const int start_y = 5;
+			
 			transform.Translate((float)(spawn - pos.x), (float)(start_y - pos.y), 0f);
-			other.GetComponent<HealthScript>().TakeDamage(1);
+			other.GetComponent<HealthScript>().TakeDamage(5);
 			sound.PlayDie();
 		}
 		if(pos.y <= ground){//+thresh?
@@ -224,7 +228,10 @@ public class MoveScript : MonoBehaviour {
 			is_in = false;
 		}
 		int ballcharge = this.GetComponent<ActionScript>().ballCharge;
-		//this.transform.Rotate(new Vector3(0, 0, 1), ballcharge);
+		//arrow.transform.Translate(0, 0, 0);
+		arrow.transform.localScale = new Vector3((float)(0.2), (float)(0.2), 1);
+		arrow.transform.Rotate(new Vector3(0, 0, 1), ballcharge);
+		
 		this.transform.localScale = new Vector3((float)(1.2*playerWidth), (float)(1.2*playerHeight), 1);
 		transform.Translate(
 			vel.x*Time.deltaTime, 
