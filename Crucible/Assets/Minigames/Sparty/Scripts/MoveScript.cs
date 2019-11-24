@@ -82,7 +82,12 @@ public class MoveScript : MonoBehaviour {
 		platform.pos = set_vec2(0, (float)-3.5);
 		platform.width = 18;//complete length across end to end
 		platform.height = 1;//thickness
-	}
+
+        if (player == 0 && TYPE == 0) animator.Play("Idle");
+        else if (player == 0 && TYPE == 4) animator.Play("K_Idle");
+        else if (player == 1 && TYPE == 0) animator.Play("Idle2");
+        else animator.Play("Idle_K2");
+    }
 	float abs(float x){
 		if(x < 0) return -x;
 		return x;
@@ -97,16 +102,20 @@ public class MoveScript : MonoBehaviour {
 	}
 	void jump(){
         //animator.SetInteger("state", 2 + TYPE);
-        if (player == 0 && TYPE == 0) animator.Play("Jump");
+        /*if (player == 0 && TYPE == 0) animator.Play("Jump");
         else if (player == 0 && TYPE == 4) animator.Play("K_Jump");
         else if (player == 1 && TYPE == 0) animator.Play("Jump2");
-        else animator.Play("Jump_K2");
+        else animator.Play("Jump_K2");*/
 		jumpTime = 0;
 		jump_count++;
 		sound.PlayMario();
 		vel.y = jump_vel;//m/s BOOST
         animator.SetInteger("state", TYPE);
-	}
+        /*if (player == 0 && TYPE == 0) animator.Play("Idle");
+        else if (player == 0 && TYPE == 4) animator.Play("K_Idle");
+        else if (player == 1 && TYPE == 0) animator.Play("Idle2");
+        else animator.Play("Idle_K2");*/
+    }
 	void run(float amnt){
 		if(amnt != 0) {
 			accel.x = amnt;
@@ -170,8 +179,8 @@ public class MoveScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (MinigameInputHelper.GetHorizontalAxis(player) < 0.1 &&
-			MinigameInputHelper.GetHorizontalAxis(player) > -0.1 &&
-			animator.GetInteger("state") < 2 + TYPE)
+			MinigameInputHelper.GetHorizontalAxis(player) > -0.1 /*&&
+			animator.GetInteger("state") < 2 + TYPE*/)
 			animator.SetInteger("state", 0 + TYPE);
 		else if(animator.GetInteger("state") < 2 + TYPE) animator.SetInteger("state", 1 + TYPE);
 		jumpTime += Time.deltaTime;
