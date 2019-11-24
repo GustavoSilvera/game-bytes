@@ -76,7 +76,8 @@ public class ActionScript : MonoBehaviour
 		if ((button1 || MinigameInputHelper.IsButton1Held(player)) && time >= cooldown && TYPE != 4 && ballCharge < 30) ballCharge++;
 
 		if (MinigameInputHelper.IsButton1Up(player) && time >= cooldown && ballCharge > 0 && TYPE != 4){
-			animator.SetInteger("state", 3 + TYPE);
+            animator.Play("Attack");
+            //animator.SetInteger("state", 3 + TYPE);
 			attacktime = 0;
 			time = 0;
 			GameObject p;
@@ -95,7 +96,7 @@ public class ActionScript : MonoBehaviour
 			ballCharge = 0;
 		}
 
-		if(attacktime > 0.5 && animator.GetInteger("state") == 3 + TYPE) animator.SetInteger("state", 0 + TYPE);
+		//if(attacktime > 0.5 && animator.GetInteger("state") == 3 + TYPE) animator.SetInteger("state", 0 + TYPE);
 
 		if (button1 && time >= cooldown && TYPE != 0){//kick
 			double xdist = gameObject.transform.position.x - other.transform.position.x;
@@ -159,7 +160,8 @@ public class ActionScript : MonoBehaviour
 		}
 		if (button1 && TYPE != 0) {
 			Debug.Log("karate attack");
-			animator.SetInteger("state", 3 + TYPE);
+            animator.Play("K_Attack");
+			//animator.SetInteger("state", 3 + TYPE);
 			Debug.Log(animator.GetInteger("state"));
 			attacktime = 0;
 		}
