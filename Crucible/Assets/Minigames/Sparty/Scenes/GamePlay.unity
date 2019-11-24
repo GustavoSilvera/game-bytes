@@ -6239,7 +6239,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 930fba6e6613d3238b46641dddf870e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4, y: 2.09}
@@ -6448,6 +6448,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d971d03cedf42fa9e9f5ae567d8d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  accel: {x: 0, y: 0}
+  vel: {x: 0, y: 0}
+  read_vel2: {x: 0, y: 0}
   TYPE: 0
   playerWidth: 2
   playerHeight: 2
@@ -8453,6 +8456,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d971d03cedf42fa9e9f5ae567d8d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  accel: {x: 0, y: 0}
+  vel: {x: 0, y: 0}
+  read_vel2: {x: 0, y: 0}
   TYPE: 0
   playerWidth: 2
   playerHeight: 2
@@ -18425,7 +18431,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 930fba6e6613d3238b46641dddf870e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4, y: 2.09}

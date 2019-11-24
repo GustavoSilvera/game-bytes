@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveScript : MonoBehaviour {
-	Vector2 accel, vel, read_vel2;
+	public Vector2 accel, vel, read_vel2;
 	Vector2 joystick, pos, pos2, pos2_old;
 	public int TYPE; //0 for tennis, 4 for karate
 	float g = (float)2.5;//gravity (m/s^2)
@@ -14,6 +14,7 @@ public class MoveScript : MonoBehaviour {
 	int jump_count = 0;
 	bool double_jump;
 	int player = 0;
+	int dir = 1;
 	public double playerWidth = 2;
 	public double playerHeight = 2;
 	bool up = false;
@@ -36,11 +37,13 @@ public class MoveScript : MonoBehaviour {
 		//init other player
 		if (gameObject.name == "Player1"){
 			player = 0;
+			dir = 1;
 			other_player_name = "Player2";
 			arrow_name = "arrow0";
 		}
 		else{
 			player = 1;
+			dir = -1;
 			other_player_name = "Player1";
 			arrow_name = "arrow1";
 		}
@@ -143,8 +146,8 @@ public class MoveScript : MonoBehaviour {
 					else
 					{
 						GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits++;
-                        GameObject.Find(other_player_name).GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
-                        if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
+	                    GameObject.Find(other_player_name).GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+	                    if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
 						{
 							GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
 							GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
@@ -162,7 +165,6 @@ public class MoveScript : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		animator.SetInteger("state", 0 + TYPE);
 		if (MinigameInputHelper.GetHorizontalAxis(player) < 0.1 &&
 			MinigameInputHelper.GetHorizontalAxis(player) > -0.1 &&
 			animator.GetInteger("state") < 2 + TYPE)
@@ -206,13 +208,15 @@ public class MoveScript : MonoBehaviour {
             if (pos2.x < platform.pos.x)
             {
                 spawn = 6.5;//actually fell on the left side
-                gameObject.GetComponent<ActionScript>().setDirection(true);
-            }
-            else
-            {
-                spawn = -6.5;//assuming fell on right side
-                gameObject.GetComponent<ActionScript>().setDirection(false);
-            }
+	            gameObject.GetComponent<ActionScript>().setDirection(true);
+				dir = 1;
+	        }
+	        else
+	        {
+	            spawn = -6.5;//assuming fell on right side
+	            gameObject.GetComponent<ActionScript>().setDirection(false);
+				dir = -1;
+	        }
 			const int start_y = 5;
 			
 			transform.Translate((float)(spawn - pos.x), (float)(start_y - pos.y), 0f);
@@ -239,11 +243,22 @@ public class MoveScript : MonoBehaviour {
 		else{
 			is_in = false;
 		}
-		int ballcharge = this.GetComponent<ActionScript>().ballCharge;
+		float ballcharge = this.GetComponent<ActionScript>().ballCharge;
 		//arrow.transform.Translate(0, 0, 0);
-		arrow.transform.localScale = new Vector3((float)(0.2), (float)(0.2), 1);
-		arrow.transform.Rotate(new Vector3(0, 0, 1), ballcharge);
-		
+		if(vel.x < 0) dir = -1;
+		else dir = 1;
+		if(ballcharge > 0 && TYPE == 0) {
+			arrow.transform.Rotate(new Vector3(0, 0, 1), dir*((3*ballcharge) * Time.deltaTime));
+			arrow.transform.localScale = new Vector3((float)(0.2), (float)(0.2), 1);
+		}
+		else {
+			arrow.transform.rotation = Quaternion.identity;
+			arrow.transform.localScale = new Vector3(0, 0, 0);		
+		}
+		//if(player == 0){
+		if(dir < 0) arrow.GetComponent<SpriteRenderer>().flipX = false;
+		else if (dir > 0) arrow.GetComponent<SpriteRenderer>().flipX = true;
+
 		this.transform.localScale = new Vector3((float)(1.2*playerWidth), (float)(1.2*playerHeight), 1);
 		transform.Translate(
 			vel.x*Time.deltaTime, 
