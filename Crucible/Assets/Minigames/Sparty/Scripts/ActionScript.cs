@@ -101,13 +101,16 @@ public class ActionScript : MonoBehaviour
 
 		if (button1 && time >= cooldown && TYPE != 0){//kick
 			double xdist = gameObject.transform.position.x - other.transform.position.x;
-			/*if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
+            /*if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
 				(pos_x > 0 && xdist < 0 && xdist > -2)) &&
 				other.GetComponent<ActionScript>().defenseOn)
 			{
 				other.GetComponent<ActionScript>().shieldHits = other.GetComponent<ActionScript>().shieldHits + 1;
 			}*/
-			if (direction && xdist > 0 && xdist < 3 * p1_width)/*((pos_x < 0 && xdist > 0 && xdist < 2*p1_width) ||
+            time = 0;
+            if (player == 0) animator.Play("K_Attack");
+            else animator.Play("Attack_K2");
+            if (direction && xdist > 0 && xdist < 3 * p1_width)/*((pos_x < 0 && xdist > 0 && xdist < 2*p1_width) ||
 				(pos_x > 0 && xdist < 0 && xdist > -2*p1_width)))*/
 			{
 				if (!other.GetComponent<ActionScript>().defenseOn)
@@ -159,10 +162,9 @@ public class ActionScript : MonoBehaviour
 				}
 			}
 		}
-		if (button1 && TYPE != 0) {
+		/*if (button1 && TYPE != 0) {
 			Debug.Log("karate attack");
-            if (player == 0) animator.Play("K_Attack");
-            else animator.Play("Attack_K2");
+            
 			//animator.SetInteger("state", 3 + TYPE);
 			Debug.Log(animator.GetInteger("state"));
 			attacktime = 0;
