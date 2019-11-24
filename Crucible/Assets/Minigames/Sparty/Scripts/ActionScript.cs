@@ -93,7 +93,7 @@ public class ActionScript : MonoBehaviour
 		if(attacktime > 0.5 && animator.GetInteger("state") == 3 + TYPE) animator.SetInteger("state", 0 + TYPE);
 
 		if (button1 && time >= cooldown && TYPE != 0){//kick
-			double xdist = pos_x - o_pos_x;
+			double xdist = gameObject.transform.position.x - other.transform.position.x;
 			/*if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2) ||
 				(pos_x > 0 && xdist < 0 && xdist > -2)) &&
 				other.GetComponent<ActionScript>().defenseOn)
@@ -156,7 +156,7 @@ public class ActionScript : MonoBehaviour
 			Debug.Log(animator.GetInteger("state"));
 			attacktime = 0;
 		}
-		if (button1 && time >= cooldown && TYPE != 0 && !other.GetComponent<ActionScript>().defenseOn){//punch //IS THERE A SHIELD CHECK HERE?? yes!
+		/*dif (button1 && time >= cooldown && TYPE != 0 && !other.GetComponent<ActionScript>().defenseOn){//punch //IS THERE A SHIELD CHECK HERE?? yes!
 			double xdist = pos_x - o_pos_x;
 			if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2*p1_width) ||
 				(pos_x > 0 && xdist < 0 && xdist > -2*p1_width)))

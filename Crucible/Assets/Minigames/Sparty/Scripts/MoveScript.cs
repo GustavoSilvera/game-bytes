@@ -225,7 +225,7 @@ public class MoveScript : MonoBehaviour {
 		}
 		int ballcharge = this.GetComponent<ActionScript>().ballCharge;
 		//this.transform.Rotate(new Vector3(0, 0, 1), ballcharge);
-		//this.transform.localScale = new Vector3((float)(1.2*playerWidth), (float)(1.2*playerHeight), 1);
+		this.transform.localScale = new Vector3((float)(1.2*playerWidth), (float)(1.2*playerHeight), 1);
 		transform.Translate(
 			vel.x*Time.deltaTime, 
 			vel.y*Time.deltaTime, 
