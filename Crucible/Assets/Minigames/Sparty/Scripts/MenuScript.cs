@@ -34,9 +34,7 @@ public class MenuScript : MonoBehaviour
 			place--;
 			up = true;
 			transform.Translate(
-				0, 
-				move_amnt,//metres 
-				0.0f
+				Vector3.up * move_amnt
 			);		
 			down = false;		
 		}
@@ -44,9 +42,7 @@ public class MenuScript : MonoBehaviour
 			place++;
 			down = true;
 			transform.Translate(
-				0, 
-				-move_amnt,//metres 
-				0.0f
+				Vector3.down * move_amnt
 			);	
 			up = false;	
 		}
