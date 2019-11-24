@@ -177,7 +177,9 @@ public class ActionScript : MonoBehaviour
 			}
 		}*/
 		defCooldown += Time.deltaTime;
-		if (button2 && TYPE != 8 && defCooldown > 3){
+        if(defCooldown > 3) GameObject.Find("shieldready" + player).transform.localScale = new Vector3(1, 1, 1);
+        else GameObject.Find("shieldready" + player).transform.localScale = new Vector3(0, 0, 0);
+        if (button2 && TYPE != 8 && defCooldown > 3){
 			shield.transform.localScale = new Vector3(1, 1, 1);
 			defenseOn = true;
 			defCooldown = 0;
