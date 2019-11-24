@@ -83,14 +83,14 @@ public class ActionScript : MonoBehaviour
 			attacktime = 0;
 			if (direction && !gameObject.GetComponent<ActionScript>().defenseOn)
 			{
-				p = Instantiate(projectile, transform.position - new Vector3((float)1, 0, 0), transform.rotation);
-				p.GetComponent<Rigidbody2D>().velocity = new Vector2(-1.25f, 0.5f) * ballCharge;
+				p = Instantiate(projectile, transform.position - new Vector3((float)2, -1, 0), transform.rotation);
+				p.GetComponent<Rigidbody2D>().velocity = new Vector2(-2.5f, 1.0f) * ballCharge;
 
 			}
 			else if (!gameObject.GetComponent<ActionScript>().defenseOn)
 			{
-				p = Instantiate(projectile, transform.position + new Vector3((float)1, 0, 0), transform.rotation);
-				p.GetComponent<Rigidbody2D>().velocity = new Vector2(1.25f, 0.5f) * ballCharge;
+				p = Instantiate(projectile, transform.position + new Vector3((float)2, 1, 0), transform.rotation);
+				p.GetComponent<Rigidbody2D>().velocity = new Vector2(2.5f, 1.0f) * ballCharge;
 			}
 			ballCharge = 0;
 		}
