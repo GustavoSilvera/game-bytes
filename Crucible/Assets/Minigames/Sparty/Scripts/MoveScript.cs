@@ -98,6 +98,7 @@ public class MoveScript : MonoBehaviour {
 		jump_count++;
 		sound.PlayMario();
 		vel.y = jump_vel;//m/s BOOST
+        animator.SetInteger("state", TYPE);
 	}
 	void run(float amnt){
 		if(amnt != 0) {
@@ -142,7 +143,8 @@ public class MoveScript : MonoBehaviour {
 					else
 					{
 						GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits++;
-						if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
+                        GameObject.Find(other_player_name).GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+                        if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
 						{
 							GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
 							GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
@@ -200,6 +202,7 @@ public class MoveScript : MonoBehaviour {
 		else if (pos.y < -8){
 			vel.y = 0;//stops from infinite falling
             double spawn;
+            animator.SetInteger("state", 1);
             if (pos2.x < platform.pos.x)
             {
                 spawn = 6.5;//actually fell on the left side
