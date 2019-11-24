@@ -84,7 +84,8 @@ public class Projectile : MonoBehaviour
 	private void Start()
 	{
 		gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
-		p1 = GameObject.Find("Player1");
+        gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+        p1 = GameObject.Find("Player1");
 		p2 = GameObject.Find("Player2");
 	}
 
