@@ -105,8 +105,8 @@ public class ActionScript : MonoBehaviour
 			{
 				other.GetComponent<ActionScript>().shieldHits = other.GetComponent<ActionScript>().shieldHits + 1;
 			}*/
-			if (!direction && ((pos_x < 0 && xdist > 0 && xdist < 2*p1_width) ||
-				(pos_x > 0 && xdist < 0 && xdist > -2*p1_width)))
+			if (direction && xdist > 0 && xdist < 3 * p1_width)/*((pos_x < 0 && xdist > 0 && xdist < 2*p1_width) ||
+				(pos_x > 0 && xdist < 0 && xdist > -2*p1_width)))*/
 			{
 				if (!other.GetComponent<ActionScript>().defenseOn)
 				{
@@ -133,8 +133,8 @@ public class ActionScript : MonoBehaviour
 			{
 				other.GetComponent<ActionScript>().shieldHits++;
 			}*/
-			if (direction && ((pos_x < 0 && xdist < 0 && xdist > -2*p1_width) ||
-				(pos_x > 0 && xdist > 0 && xdist < 2*p1_width)))
+			if (!direction && xdist < 0 && xdist > -3 * p1_width)/*((pos_x < 0 && xdist < 0 && xdist > -2*p1_width) ||
+				(pos_x > 0 && xdist > 0 && xdist < 2*p1_width)))*/
 			{
 				if (!other.GetComponent<ActionScript>().defenseOn)
 				{
@@ -173,7 +173,7 @@ public class ActionScript : MonoBehaviour
 			{
 				gameObject.GetComponent<HealthScript>().TakeDamage(1);
 			}
-		}
+		}*/
 		defCooldown += Time.deltaTime;
 		if (button2 && TYPE != 8 && defCooldown > 3){
 			shield.transform.localScale = new Vector3(1, 1, 1);

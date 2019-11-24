@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Minigame_Sporshmallow
   m_EditorClassIdentifier: 
   Name: Sporshmallow
-  Description: This is just a test of the minigame player functionality to make sure
-    everything works.
+  Description: A marshallow-themed, Smash-like sports game.
   Year: 2019
   Semester: 0
-  Thumbnail: {fileID: 21300000, guid: 05d2b34c5d3a365448761905bbad7958, type: 3}
+  Thumbnail: {fileID: 21300000, guid: 4a43995b1200546178aa0669636f1ea0, type: 3}
   CreatorNames: Bella Laybourn, Gustavo Silvera, Sarah Pethani
   P1_Objective: Win by gaining points from damaging the other player
   P2_Objective: Win by gaining points from damaging the other player
