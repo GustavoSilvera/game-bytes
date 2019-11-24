@@ -116,7 +116,7 @@ public class ActionScript : MonoBehaviour
 				else
 				{
 				    shieldHits++;
-                    gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+                    other.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
                     Debug.Log(shieldHits);
 				    if (shieldHits >= 3)
 				    {
@@ -145,7 +145,7 @@ public class ActionScript : MonoBehaviour
 				else
 				{
 					shieldHits++;
-                    gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+                    other.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
                     Debug.Log(shieldHits);
 					if (shieldHits >= 3)
 					{
