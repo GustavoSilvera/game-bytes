@@ -199,8 +199,17 @@ public class MoveScript : MonoBehaviour {
 		}
 		else if (pos.y < -8){
 			vel.y = 0;//stops from infinite falling
-			double spawn = -6.5;//assuming fell on right side
-			if(pos2.x < platform.pos.x) spawn = 6.5;//actually fell on the left side
+            double spawn;
+            if (pos2.x < platform.pos.x)
+            {
+                spawn = 6.5;//actually fell on the left side
+                gameObject.GetComponent<ActionScript>().setDirection(true);
+            }
+            else
+            {
+                spawn = -6.5;//assuming fell on right side
+                gameObject.GetComponent<ActionScript>().setDirection(false);
+            }
 			const int start_y = 5;
 			
 			transform.Translate((float)(spawn - pos.x), (float)(start_y - pos.y), 0f);
