@@ -29,7 +29,7 @@ public class MoveScript : MonoBehaviour {
 	Animator animator;
 	float jumpTime = 0.0f;
 
-	string other_player_name;
+	string other_player_name, arrow_name;
 	// Use this for initialization
 	void Start () {
 		sound = FindObjectOfType<SFX>();
@@ -37,13 +37,15 @@ public class MoveScript : MonoBehaviour {
 		if (gameObject.name == "Player1"){
 			player = 0;
 			other_player_name = "Player2";
+			arrow_name = "arrow0";
 		}
 		else{
 			player = 1;
 			other_player_name = "Player1";
+			arrow_name = "arrow1";
 		}
 		other = GameObject.Find(other_player_name);
-		arrow = GameObject.Find("arrow");
+		arrow = GameObject.Find(arrow_name);
 		animator = gameObject.GetComponent<Animator>();
 		//init this player
 		if(TYPE == 4){ //karate
@@ -226,8 +228,10 @@ public class MoveScript : MonoBehaviour {
 			is_in = false;
 		}
 		int ballcharge = this.GetComponent<ActionScript>().ballCharge;
-		//arrow.transform.localScale = new Vector3((float)(0.2), (float)(0.2), 1);
-		//arrow.transform.Rotate(new Vector3(0, 0, 1), ballcharge);
+		//arrow.transform.Translate(0, 0, 0);
+		arrow.transform.localScale = new Vector3((float)(0.2), (float)(0.2), 1);
+		arrow.transform.Rotate(new Vector3(0, 0, 1), ballcharge);
+		
 		this.transform.localScale = new Vector3((float)(1.2*playerWidth), (float)(1.2*playerHeight), 1);
 		transform.Translate(
 			vel.x*Time.deltaTime, 
