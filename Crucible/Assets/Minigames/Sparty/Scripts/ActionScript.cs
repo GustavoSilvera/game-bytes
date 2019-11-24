@@ -105,7 +105,7 @@ public class ActionScript : MonoBehaviour
 			{
 				other.GetComponent<ActionScript>().shieldHits = other.GetComponent<ActionScript>().shieldHits + 1;
 			}*/
-			if (!direction && xdist > 0 && xdist < 3 * p1_width)/*((pos_x < 0 && xdist > 0 && xdist < 2*p1_width) ||
+			if (direction && xdist > 0 && xdist < 3 * p1_width)/*((pos_x < 0 && xdist > 0 && xdist < 2*p1_width) ||
 				(pos_x > 0 && xdist < 0 && xdist > -2*p1_width)))*/
 			{
 				if (!other.GetComponent<ActionScript>().defenseOn)
@@ -133,7 +133,7 @@ public class ActionScript : MonoBehaviour
 			{
 				other.GetComponent<ActionScript>().shieldHits++;
 			}*/
-			if (direction && xdist < 0 && xdist > 3 * p1_width)/*((pos_x < 0 && xdist < 0 && xdist > -2*p1_width) ||
+			if (!direction && xdist < 0 && xdist > -3 * p1_width)/*((pos_x < 0 && xdist < 0 && xdist > -2*p1_width) ||
 				(pos_x > 0 && xdist > 0 && xdist < 2*p1_width)))*/
 			{
 				if (!other.GetComponent<ActionScript>().defenseOn)
