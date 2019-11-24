@@ -30,6 +30,11 @@ public class ActionScript : MonoBehaviour
 	public int ballCharge = 0;
 	public int shieldHits;
 
+    public void setDirection(bool d)
+    {
+        direction = d;
+    }
+
 	private void Start()
 	{
 		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
