@@ -36,8 +36,9 @@ public class Projectile : MonoBehaviour
 		{
 	        if (!p1.GetComponent<ActionScript>().defenseOn)
 	        {
-	            p2.GetComponent<HealthScript>().TakeDamage(1);
-	        }
+                p2.GetComponent<HealthScript>().TakeDamage(1);
+                p1.GetComponent<MoveScript>().vel.x = -(float)(p1.GetComponent<MoveScript>().vel.x - rb.velocity.x);
+            }
 	        else
             {
                 p1.GetComponent<ActionScript>().shieldHits++;
@@ -62,8 +63,9 @@ public class Projectile : MonoBehaviour
 		{
 	        if (!p2.GetComponent<ActionScript>().defenseOn)
 	        {
-	            p1.GetComponent<HealthScript>().TakeDamage(1);
-	        }
+                p1.GetComponent<HealthScript>().TakeDamage(1);
+                p2.GetComponent<MoveScript>().vel.x = -(float)(p2.GetComponent<MoveScript>().vel.x - rb.velocity.x);
+            }
 	        else
 	        {
 	            p2.GetComponent<ActionScript>().shieldHits++;
