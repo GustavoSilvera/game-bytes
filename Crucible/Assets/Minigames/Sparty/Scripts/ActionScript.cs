@@ -30,9 +30,9 @@ public class ActionScript : MonoBehaviour
 	public int ballCharge = 0;
 	public int shieldHits;
 
-    public void setDefense(bool d)
+    public void setDirection(bool d)
     {
-        defenseOn = d;
+        direction = d;
     }
 
 	private void Start()
