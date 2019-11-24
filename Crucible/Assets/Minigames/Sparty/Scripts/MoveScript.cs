@@ -202,7 +202,7 @@ public class MoveScript : MonoBehaviour {
 			transform.Translate(0f, (float)(ground - pos.y), 0f);
 		}
 		else if (pos.y < -8){
-			vel.y = 0;//stops from infinite falling
+			vel.y = 0;//stops from infinite falling	
 			vel.x = 0;            
 			double spawn;
 	        animator.SetInteger("state", 1);
@@ -246,7 +246,7 @@ public class MoveScript : MonoBehaviour {
 		float ballcharge = this.GetComponent<ActionScript>().ballCharge;
 		//arrow.transform.Translate(0, 0, 0);
 		if(MinigameInputHelper.GetHorizontalAxis(player) < 0) dir = -1;
-		else if (vel.x > 0) dir = 1;
+		else if (MinigameInputHelper.GetHorizontalAxis(player) > 0) dir = 1;
 		if(ballcharge > 0 && TYPE == 0) {
 			arrow.transform.Rotate(new Vector3(0, 0, 1), dir*((3*ballcharge) * Time.deltaTime));
 			arrow.transform.localScale = new Vector3((float)(0.2), (float)(0.2), 1);
