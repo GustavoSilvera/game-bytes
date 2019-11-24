@@ -25,7 +25,7 @@ public class MoveScript : MonoBehaviour {
 	};
 	rect platform;
 	SFX sound;
-	GameObject other;
+	GameObject other, arrow;
 	Animator animator;
 	float jumpTime = 0.0f;
 
@@ -43,6 +43,7 @@ public class MoveScript : MonoBehaviour {
 			other_player_name = "Player1";
 		}
 		other = GameObject.Find(other_player_name);
+		arrow = GameObject.Find("arrow");
 		animator = gameObject.GetComponent<Animator>();
 		//init this player
 		if(TYPE == 4){ //karate
@@ -141,10 +142,10 @@ public class MoveScript : MonoBehaviour {
 						GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits++;
 						if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
 						{
-						    GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
-						    GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
-						    GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits = 0;
-						    GameObject.Find(other_player_name).GetComponent<ActionScript>().defCooldown = 0;
+							GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
+							GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
+							GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits = 0;
+							GameObject.Find(other_player_name).GetComponent<ActionScript>().defCooldown = 0;
 						}
 					}
 					sound.PlayStomp();
@@ -199,8 +200,9 @@ public class MoveScript : MonoBehaviour {
 			double spawn = -6.5;//assuming fell on right side
 			if(pos2.x < platform.pos.x) spawn = 6.5;//actually fell on the left side
 			const int start_y = 5;
+			
 			transform.Translate((float)(spawn - pos.x), (float)(start_y - pos.y), 0f);
-			other.GetComponent<HealthScript>().TakeDamage(1);
+			other.GetComponent<HealthScript>().TakeDamage(5);
 			sound.PlayDie();
 		}
 		if(pos.y <= ground){//+thresh?
@@ -224,7 +226,8 @@ public class MoveScript : MonoBehaviour {
 			is_in = false;
 		}
 		int ballcharge = this.GetComponent<ActionScript>().ballCharge;
-		//this.transform.Rotate(new Vector3(0, 0, 1), ballcharge);
+		//arrow.transform.localScale = new Vector3((float)(0.2), (float)(0.2), 1);
+		//arrow.transform.Rotate(new Vector3(0, 0, 1), ballcharge);
 		this.transform.localScale = new Vector3((float)(1.2*playerWidth), (float)(1.2*playerHeight), 1);
 		transform.Translate(
 			vel.x*Time.deltaTime, 
