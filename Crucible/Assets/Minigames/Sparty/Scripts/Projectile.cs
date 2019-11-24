@@ -39,9 +39,10 @@ public class Projectile : MonoBehaviour
 	            p2.GetComponent<HealthScript>().TakeDamage(1);
 	        }
 	        else
-	        {
-	            p1.GetComponent<ActionScript>().shieldHits++;
-	            if (p1.GetComponent<ActionScript>().shieldHits >= 3)
+            {
+                p1.GetComponent<ActionScript>().shieldHits++;
+                p1.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+                if (p1.GetComponent<ActionScript>().shieldHits >= 3)
 	            {
 	                p1.GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
 	                p1.GetComponent<ActionScript>().defenseOn = false;
@@ -66,7 +67,8 @@ public class Projectile : MonoBehaviour
 	        else
 	        {
 	            p2.GetComponent<ActionScript>().shieldHits++;
-	            if (p2.GetComponent<ActionScript>().shieldHits >= 3)
+                p2.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+                if (p2.GetComponent<ActionScript>().shieldHits >= 3)
 	            {
 	                p2.GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
 	                p2.GetComponent<ActionScript>().defenseOn = false;

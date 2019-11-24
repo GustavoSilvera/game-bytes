@@ -142,7 +142,8 @@ public class MoveScript : MonoBehaviour {
 					else
 					{
 						GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits++;
-						if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
+                        GameObject.Find(other_player_name).GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+                        if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
 						{
 							GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
 							GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
