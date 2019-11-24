@@ -210,13 +210,14 @@ public class MoveScript : MonoBehaviour {
 	        {
 	            spawn = 6.5;//actually fell on the left side
 		        gameObject.GetComponent<ActionScript>().setDirection(true);
+				dir = -1;
 		    }
 		    else
 		    {
 		        spawn = -6.5;//assuming fell on right side
 		        gameObject.GetComponent<ActionScript>().setDirection(false);
+				dir = 1;
 		    }
-			dir = -dir;
 			const int start_y = 5;
 			transform.Translate((float)(spawn - pos.x), (float)(start_y - pos.y), 0f);
 			other.GetComponent<HealthScript>().TakeDamage(5);
@@ -244,7 +245,7 @@ public class MoveScript : MonoBehaviour {
 		}
 		float ballcharge = this.GetComponent<ActionScript>().ballCharge;
 		//arrow.transform.Translate(0, 0, 0);
-		if(vel.x < 0) dir = -1;
+		if(MinigameInputHelper.GetHorizontalAxis(player) < 0) dir = -1;
 		else if (vel.x > 0) dir = 1;
 		if(ballcharge > 0 && TYPE == 0) {
 			arrow.transform.Rotate(new Vector3(0, 0, 1), dir*((3*ballcharge) * Time.deltaTime));
