@@ -96,7 +96,11 @@ public class MoveScript : MonoBehaviour {
 		return (new Vector2(x, y));
 	}
 	void jump(){
-		animator.SetInteger("state", 2 + TYPE);
+        //animator.SetInteger("state", 2 + TYPE);
+        if (player == 0 && TYPE == 0) animator.Play("Jump");
+        else if (player == 0 && TYPE == 4) animator.Play("K_Jump");
+        else if (player == 1 && TYPE == 0) animator.Play("Jump2");
+        else animator.Play("Jump_K2");
 		jumpTime = 0;
 		jump_count++;
 		sound.PlayMario();

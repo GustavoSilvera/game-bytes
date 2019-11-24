@@ -76,7 +76,9 @@ public class ActionScript : MonoBehaviour
 		if ((button1 || MinigameInputHelper.IsButton1Held(player)) && time >= cooldown && TYPE != 4 && ballCharge < 30) ballCharge++;
 
 		if (MinigameInputHelper.IsButton1Up(player) && time >= cooldown && ballCharge > 0 && TYPE != 4){
-			animator.SetInteger("state", 3 + TYPE);
+            if (player == 0) animator.Play("Attack");
+            else animator.Play("Attack2");
+            //animator.SetInteger("state", 3 + TYPE);
 			attacktime = 0;
 			time = 0;
 			GameObject p;
@@ -95,7 +97,7 @@ public class ActionScript : MonoBehaviour
 			ballCharge = 0;
 		}
 
-		if(attacktime > 0.5 && animator.GetInteger("state") == 3 + TYPE) animator.SetInteger("state", 0 + TYPE);
+		//if(attacktime > 0.5 && animator.GetInteger("state") == 3 + TYPE) animator.SetInteger("state", 0 + TYPE);
 
 		if (button1 && time >= cooldown && TYPE != 0){//kick
 			double xdist = gameObject.transform.position.x - other.transform.position.x;
@@ -159,7 +161,9 @@ public class ActionScript : MonoBehaviour
 		}
 		if (button1 && TYPE != 0) {
 			Debug.Log("karate attack");
-			animator.SetInteger("state", 3 + TYPE);
+            if (player == 0) animator.Play("K_Attack");
+            else animator.Play("Attack_K2");
+			//animator.SetInteger("state", 3 + TYPE);
 			Debug.Log(animator.GetInteger("state"));
 			attacktime = 0;
 		}
@@ -177,7 +181,9 @@ public class ActionScript : MonoBehaviour
 			}
 		}*/
 		defCooldown += Time.deltaTime;
-		if (button2 && TYPE != 8 && defCooldown > 3){
+        if(defCooldown > 3) GameObject.Find("shieldready" + player).transform.localScale = new Vector3(1, 1, 1);
+        else GameObject.Find("shieldready" + player).transform.localScale = new Vector3(0, 0, 0);
+        if (button2 && TYPE != 8 && defCooldown > 3){
 			shield.transform.localScale = new Vector3(1, 1, 1);
 			defenseOn = true;
 			defCooldown = 0;
