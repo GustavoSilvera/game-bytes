@@ -134,18 +134,18 @@ public class MoveScript : MonoBehaviour {
 				if(pos.y > pos2.y){
 					if (!GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn)
 					{
-					    this.GetComponent<HealthScript>().TakeDamage(1);
+						this.GetComponent<HealthScript>().TakeDamage(1);
 					}
 					else
 					{
-					    GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits++;
-					    if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
-					    {
-					        GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
-					        GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
-					        GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits = 0;
-					        GameObject.Find(other_player_name).GetComponent<ActionScript>().defCooldown = 0;
-					    }
+						GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits++;
+						if (GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits >= 3)
+						{
+						    GameObject.Find(other_player_name).GetComponent<ActionScript>().shield.transform.localScale = new Vector3(0, 0, 0);
+						    GameObject.Find(other_player_name).GetComponent<ActionScript>().defenseOn = false;
+						    GameObject.Find(other_player_name).GetComponent<ActionScript>().shieldHits = 0;
+						    GameObject.Find(other_player_name).GetComponent<ActionScript>().defCooldown = 0;
+						}
 					}
 					sound.PlayStomp();
 				}		
@@ -223,7 +223,9 @@ public class MoveScript : MonoBehaviour {
 		else{
 			is_in = false;
 		}
-		this.transform.localScale = new Vector3((float)(1.2*playerWidth), (float)(1.2*playerHeight), 1);
+		int ballcharge = this.GetComponent<ActionScript>().ballCharge;
+		//this.transform.Rotate(new Vector3(0, 0, 1), ballcharge);
+		//this.transform.localScale = new Vector3((float)(1.2*playerWidth), (float)(1.2*playerHeight), 1);
 		transform.Translate(
 			vel.x*Time.deltaTime, 
 			vel.y*Time.deltaTime, 
