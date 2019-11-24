@@ -98,6 +98,7 @@ public class MoveScript : MonoBehaviour {
 		jump_count++;
 		sound.PlayMario();
 		vel.y = jump_vel;//m/s BOOST
+        animator.SetInteger("state", TYPE);
 	}
 	void run(float amnt){
 		if(amnt != 0) {
@@ -201,6 +202,7 @@ public class MoveScript : MonoBehaviour {
 		else if (pos.y < -8){
 			vel.y = 0;//stops from infinite falling
             double spawn;
+            animator.SetInteger("state", 1);
             if (pos2.x < platform.pos.x)
             {
                 spawn = 6.5;//actually fell on the left side
