@@ -6546,6 +6546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb9a542d738b4982b9fab1ae9d9be7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scores: 0000000000000000
 --- !u!114 &729832746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8636,6 +8637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb9a542d738b4982b9fab1ae9d9be7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scores: 0000000000000000
 --- !u!114 &1576451239
 MonoBehaviour:
   m_ObjectHideFlags: 0
