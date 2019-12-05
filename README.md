@@ -1,5 +1,10 @@
 # Sporshmallow game-bytes Repository
-This is the repository for the CMU Game Creation Society mini-game "Sparty".
+This is the repository for the CMU Game Creation Society mini-game "Sporthmallow".
+# Demo (Prerelease Stage)
+![](Crucible/Assets/Minigames/Sparty/Resources/Prerelease.gif)
+
+# Demo (Beta Stage)
+![](Crucible/Assets/Minigames/Sparty/Resources/Beta.gif)
 
 # Demo (Alpha Stage)
 

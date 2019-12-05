@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Sparty_mg/Scene_Template.unity
-  isLoaded: 1
-  isActive: 1
