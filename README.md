@@ -1,5 +1,5 @@
 # Sporshmallow game-bytes Repository
-This is the repository for the CMU Game Creation Society mini-game "Sporshmallow".
+ This is the repository for the CMU Game Creation Society mini-game "Sporshmallow".
 # Demo (Prerelease Stage)
 ![](Crucible/Assets/Minigames/Sporshmallow/Resources/SporshmallowReleaseDemoLQ.gif)
 
