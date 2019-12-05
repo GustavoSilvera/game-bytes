@@ -84,9 +84,9 @@ public class HealthScript : MonoBehaviour
         scores[player - 1] += amount;
         other.GetComponent<HealthScript>().updateScore(player, amount);
         if (scores[0] > scores[1])
-            GameObject.Find("Main Camera").GetComponent<Camera>().backgroundColor = new Color(0.152f, 0.535f, 0.0625f, 1f);
+            GameObject.Find("Main Camera").GetComponent<Camera>().backgroundColor = new Color(0.152f, 0.535f, 0.0625f);
         if (scores[1] > scores[0])
-            GameObject.Find("Main Camera").GetComponent<Camera>().backgroundColor = new Color(0.9f, 0.7f, 0.0625f, 1f);
+            GameObject.Find("Main Camera").GetComponent<Camera>().backgroundColor = new Color(0.9f, 0.7f, 0.0625f);
         var colorer = other.GetComponent<Renderer>();
 		colorer.material.SetColor("_Color", Color.red);
 	    GameObject.Find("p" + player + "pointcircle").transform.localScale = new Vector3(1, 1, 1);

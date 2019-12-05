@@ -120,16 +120,16 @@ public class ActionScript : MonoBehaviour
 				}
 				else
 				{
-				    shieldHits++;
+				    other.GetComponent<ActionScript>().shieldHits++;
                     other.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
                     Debug.Log(shieldHits);
-				    if (shieldHits >= 3)
+				    /*if (shieldHits >= 3)
 				    {
 				        shield.transform.localScale = new Vector3(0, 0, 0);
 				        defenseOn = false;
 				        shieldHits = 0;
 				        defCooldown = 0;
-				    }
+				    }*/
 				}
 			}
 
@@ -149,16 +149,16 @@ public class ActionScript : MonoBehaviour
 				}
 				else
 				{
-					shieldHits++;
+                    other.GetComponent<ActionScript>().shieldHits++;
                     other.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
                     Debug.Log(shieldHits);
-					if (shieldHits >= 3)
+					/*if (shieldHits >= 3)
 					{
 					    shield.transform.localScale = new Vector3(0, 0, 0);
 					    defenseOn = false;
 					    shieldHits = 0;
 						defCooldown = 0;
-					}
+					}*/
 				}
 			}
 		}
@@ -183,19 +183,20 @@ public class ActionScript : MonoBehaviour
 			}
 		}*/
 		defCooldown += Time.deltaTime;
-        if(defCooldown > 3) GameObject.Find("shieldready" + player).transform.localScale = new Vector3(1, 1, 1);
+        if(defCooldown > 3 && !defenseOn) GameObject.Find("shieldready" + player).transform.localScale = new Vector3(1, 1, 1);
         else GameObject.Find("shieldready" + player).transform.localScale = new Vector3(0, 0, 0);
         if (button2 && TYPE != 8 && defCooldown > 3){
 			shield.transform.localScale = new Vector3(1, 1, 1);
 			defenseOn = true;
 			defCooldown = 0;
 		}
-		/*if(shieldHits > 3)
+		if(shieldHits >= 3)
 		{
-			defenseOn = false;
+            shield.transform.localScale = new Vector3(0, 0, 0);
+            defenseOn = false;
 			shieldHits = 0;
 			defCooldown = 0;
-		}*/
+		}
 		if (button2Up){
 			shield.transform.localScale = new Vector3(0, 0, 0);
 			defenseOn = false;
